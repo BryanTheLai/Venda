@@ -126,7 +126,7 @@ fun MachineInputForm(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = machineDetails.name,
+            value = machineDetails.name, // NAME
             onValueChange = { onValueChange(machineDetails.copy(name = it)) },
             label = { Text(stringResource(R.string.machine_name_req)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -139,8 +139,11 @@ fun MachineInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = machineDetails.price,
-            onValueChange = { onValueChange(machineDetails.copy(price = it)) },
+            value = machineDetails.price, // PRICE
+            onValueChange = {newValue ->
+                if ( newValue.matches( Regex("^\\d+(?:\\.\\d{0,2})?$") ) ) {
+                    onValueChange(machineDetails.copy(price = newValue))
+                }},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             label = { Text(stringResource(R.string.machine_price_req)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -152,7 +155,7 @@ fun MachineInputForm(
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
-        )
+        )/*
         OutlinedTextField(
             value = machineDetails.quantity,
             onValueChange = { onValueChange(machineDetails.copy(quantity = it)) },
@@ -166,13 +169,57 @@ fun MachineInputForm(
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
+        )*/
+        OutlinedTextField(
+            value = machineDetails.model, // MODEL
+            onValueChange = { onValueChange(machineDetails.copy(model = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            label = { Text(stringResource(R.string.model_name)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
         )
+
+        OutlinedTextField(
+            value = machineDetails.dateInstalled, // DATE INSTALLED
+            onValueChange = { onValueChange(machineDetails.copy(dateInstalled = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            label = { Text(stringResource(R.string.date_installed)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = machineDetails.location, // LOCATION
+            onValueChange = { onValueChange(machineDetails.copy(location = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            label = { Text(stringResource(R.string.location)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = false
+        )
+        /*
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
-        }
+        }*/
     }
 }
 

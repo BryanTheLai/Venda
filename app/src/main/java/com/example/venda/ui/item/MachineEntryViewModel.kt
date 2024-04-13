@@ -46,7 +46,12 @@ class MachineEntryViewModel(private val machinesRepository: MachinesRepository) 
 
     private fun validateInput(uiState: MachineDetails = machineUiState.machineDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            name.isNotBlank()
+                    && price.isNotBlank()
+                    && model.isNotBlank()
+                    && dateInstalled.isNotBlank()
+                    && location.isNotBlank()
+            //&& quantity.isNotBlank()
         }
     }
 
@@ -71,6 +76,9 @@ data class MachineDetails(
     val name: String = "",
     val price: String = "",
     val quantity: String = "",
+    val model: String  = "",
+    val dateInstalled: String  = "",
+    val location: String  = "",
 )
 
 /**
@@ -82,7 +90,11 @@ fun MachineDetails.toMachine(): Machine = Machine(
     id = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0
+    quantity = quantity.toIntOrNull() ?: 0,
+    model = model,
+    dateInstalled = dateInstalled.toLongOrNull() ?: 0L,
+    location = location,
+
 )
 
 fun Machine.formatedPrice(): String {
@@ -104,5 +116,8 @@ fun Machine.toMachineDetails(): MachineDetails = MachineDetails(
     id = id,
     name = name,
     price = price.toString(),
-    quantity = quantity.toString()
+    quantity = quantity.toString(),
+    model = model,
+    dateInstalled = dateInstalled.toString(),
+    location = location,
 )

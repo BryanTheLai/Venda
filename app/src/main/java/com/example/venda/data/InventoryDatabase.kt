@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Machine::class], version = 1, exportSchema = false)
+@Database(entities = [Machine::class], version = 2, exportSchema = false)
 abstract class InventoryDatabase: RoomDatabase() {
     abstract fun machineDao(): MachineDao
 

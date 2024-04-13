@@ -28,7 +28,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -130,6 +129,7 @@ private fun MachineDetailsBody(
             machine = machineDetailsUiState.machineDetails.toMachine(),
             modifier = Modifier.fillMaxWidth()
         )
+        /*
         Button(
             onClick = onSellMachine,
             modifier = Modifier.fillMaxWidth(),
@@ -138,6 +138,8 @@ private fun MachineDetailsBody(
         ) {
             Text(stringResource(R.string.sell))
         }
+        */
+
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
             shape = MaterialTheme.shapes.small,
@@ -184,16 +186,38 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+            /*
             MachineDetailsRow(
                 labelResID = R.string.quantity_in_stock,
                 machineDetail = machine.quantity.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
-            )
+            )*/
             MachineDetailsRow(
                 labelResID = R.string.price,
                 machineDetail = machine.formatedPrice(),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            MachineDetailsRow(
+                labelResID = R.string.model_name,
+                machineDetail = machine.model,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            MachineDetailsRow(
+                labelResID = R.string.date_installed,
+                machineDetail = machine.dateInstalled.toString(),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            MachineDetailsRow(
+                labelResID = R.string.location,
+                machineDetail = machine.location,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
@@ -220,7 +244,7 @@ private fun DeleteConfirmationDialog(
     modifier: Modifier = Modifier
 ) {
     AlertDialog(onDismissRequest = { /* Do nothing */ },
-        title = { Text(stringResource(R.string.attention)) },
+        title = { Text(stringResource(R.string.confirmation)) },
         text = { Text(stringResource(R.string.delete_question)) },
         modifier = modifier,
         dismissButton = {

@@ -1,21 +1,25 @@
 <resources>
-    <string name="app_name">Venma</string>
-    <string name="attention">Attention</string>
+    <string name="app_name">Venda</string>
+    <string name="confirmation">Confirmation</string>
     <string name="back_button">Back</string>
     <string name="delete">Delete</string>
-    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="delete_question">Are you sure you want to delete this Machine?\n\nThis Machine will be deleted permanently.</string>
     <string name="no_machine_description">Oops!\nNo machines in the inventory.\nTap + to add.</string>
     <string name="edit_machine_title">Edit Machine</string>
     <string name="machine">Machine</string>
     <string name="machine_detail_title">Machine Details</string>
     <string name="machine_entry_title">Add Machine</string>
     <string name="machine_name_req">Machine Name*</string>
-    <string name="machine_price_req">Machine Price*</string>
+    <string name="machine_price_req">Machine Price</string>
     <string name="no">No</string>
     <string name="price">Price</string>
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="in_stock">%d in stock</string>
     <string name="quantity_req">Quantity in Stock*</string>
+    <string name="model_name">Model Name</string>
+    <string name="date_installed">Date Installed</string>
+    <string name="location">Location</string>
+
     <string name="save_action">Save</string>
     <string name="sell">Sell</string>
     <string name="yes">Yes</string>

@@ -45,7 +45,11 @@ class MachineEditViewModel(
 
     private fun validateInput(uiState: MachineDetails = machineUiState.machineDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            name.isNotBlank()
+                    && price.isNotBlank()
+                    && model.isNotBlank()
+                    && dateInstalled.isNotBlank()
+                    && location.isNotBlank()
         }
     }
 

@@ -29,5 +29,8 @@ data class Machine(
     val id: Int = 0,
     val name: String,
     val price: Double,
-    val quantity: Int
+    val quantity: Int,
+    val model: String, // model
+    val dateInstalled: Long, // date installed
+    val location: String, // location
 )
