@@ -56,6 +56,15 @@ import com.example.venda.data.Machine
 import com.example.venda.ui.AppViewModelProvider
 import com.example.venda.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+fun convertLongToTime(time: Long): String {
+    val date = Date(time)
+    val format = SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH)
+    return format.format(date)
+}
 
 object MachineDetailsDestination : NavigationDestination {
     override val route = "machine_details"
@@ -180,7 +189,7 @@ fun MachineDetails(
             )
         ) {
             MachineDetailsRow(
-                labelResID = R.string.machine,
+                labelResID = R.string.name,
                 machineDetail = machine.name,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
@@ -208,9 +217,10 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+
             MachineDetailsRow(
                 labelResID = R.string.date_installed,
-                machineDetail = machine.dateInstalled.toString(),
+                machineDetail = convertLongToTime(machine.dateInstalled),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )

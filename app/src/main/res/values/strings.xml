@@ -11,13 +11,14 @@
     <string name="machine_entry_title">Add Machine</string>
     <string name="machine_name_req">Machine Name*</string>
     <string name="machine_price_req">Machine Price</string>
+    <string name="name">Name</string>">
     <string name="no">No</string>
     <string name="price">Price</string>
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="in_stock">%d in stock</string>
     <string name="quantity_req">Quantity in Stock*</string>
     <string name="model_name">Model Name</string>
-    <string name="date_installed">Date Installed</string>
+    <string name="date_installed">Installed on (y/m/d)</string>
     <string name="location">Location</string>
 
     <string name="save_action">Save</string>
