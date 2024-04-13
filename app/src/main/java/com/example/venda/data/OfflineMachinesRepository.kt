@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.data
+package com.example.venda.data
 
 import kotlinx.coroutines.flow.Flow
 

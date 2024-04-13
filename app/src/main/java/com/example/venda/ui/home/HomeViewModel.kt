@@ -18,10 +18,10 @@ package com.example.venda.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.inventory.data.Machine
-import kotlinx.coroutines.flow.StateFlow
-import com.example.inventory.data.MachinesRepository
+import com.example.venda.data.Machine
+import com.example.venda.data.MachinesRepository
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 

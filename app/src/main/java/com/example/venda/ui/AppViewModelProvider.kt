@@ -16,17 +16,17 @@
 
 package com.example.venda.ui
 
-import android.app.Application
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.inventory.InventoryApplication
-import com.example.inventory.ui.home.HomeViewModel
-import com.example.inventory.ui.machine.MachineDetailsViewModel
-import com.example.inventory.ui.machine.MachineEditViewModel
-import com.example.inventory.ui.machine.MachineEntryViewModel
+import com.example.venda.InventoryApplication
+import com.example.venda.ui.home.HomeViewModel
+import com.example.venda.ui.item.MachineDetailsViewModel
+import com.example.venda.ui.item.MachineEditViewModel
+import com.example.venda.ui.item.MachineEntryViewModel
+
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -60,9 +60,5 @@ object AppViewModelProvider {
     }
 }
 
-/**
- * Extension function to queries for [Application] object and returns an instance of
- * [InventoryApplication].
- */
 fun CreationExtras.inventoryApplication(): InventoryApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)

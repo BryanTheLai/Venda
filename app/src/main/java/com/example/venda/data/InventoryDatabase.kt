@@ -1,4 +1,4 @@
-package com.example.inventory.data
+package com.example.venda.data
 
 import android.content.Context
 import androidx.room.Database

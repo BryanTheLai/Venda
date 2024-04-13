@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.inventory.data
+package com.example.venda.data
 
-/**
- * Repository that provides insert, update, delete, and retrieve of [Machine] from a given data source.
- */
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Repository that provides insert, update, delete, and retrieve of [Machine] from a given data source.
- */
 interface MachinesRepository {
     /**
      * Retrieve all the machines from the given data source.

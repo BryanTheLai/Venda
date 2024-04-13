@@ -26,7 +26,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.machines
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -47,19 +47,15 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.inventory.InventoryTopAppBar
-import com.example.inventory.R
-import com.example.inventory.data.Machine
-import com.example.inventory.ui.AppViewModelProvider
-import com.example.inventory.ui.machine.formatedPrice
-import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
 import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
+import com.example.venda.data.Machine
 import com.example.venda.ui.AppViewModelProvider
+import com.example.venda.ui.item.formatedPrice
+import com.example.venda.ui.navigation.NavigationDestination
+
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -143,72 +139,46 @@ private fun InventoryList(
     machineList: List<Machine>, onMachineClick: (Machine) -> Unit, modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        machines(machines = machineList, key = { it.id }) { machine ->
-            InventoryMachine(machine = machine,
+        items(items = machineList, key = { it.id }) { machine ->
+            InventoryMachine(
+                machine = machine,
                 modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onMachineClick(machine) })
-        }
-    }
-}
-
-@Composable
-private fun InventoryMachine(
-    machine: Machine, modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = machine.name,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = machine.formatedPrice(),
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-            Text(
-                text = stringResource(R.string.in_stock, machine.quantity),
-                style = MaterialTheme.typography.titleMedium
+                    .clickable { onMachineClick(machine) }
             )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyPreview() {
-    InventoryTheme {
-        HomeBody(listOf(
-            Machine(1, "Game", 100.0, 20), Machine(2, "Pen", 200.0, 30), Machine(3, "TV", 300.0, 50)
-        ), onMachineClick = {})
+    @Composable
+    private fun InventoryMachine(
+        machine: Machine, modifier: Modifier = Modifier
+    ) {
+        Card(
+            modifier = modifier,
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = machine.name,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Spacer(Modifier.weight(1f))
+                    Text(
+                        text = machine.formatedPrice(),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+                Text(
+                    text = stringResource(R.string.in_stock, machine.quantity),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+        }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyEmptyListPreview() {
-    InventoryTheme {
-        HomeBody(listOf(), onMachineClick = {})
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun InventoryMachinePreview() {
-    InventoryTheme {
-        InventoryMachine(
-            Machine(1, "Game", 100.0, 20),
-        )
-    }
-}

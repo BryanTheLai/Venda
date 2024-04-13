@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.navigation
+package com.example.venda.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,14 +23,16 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.inventory.ui.home.HomeDestination
-import com.example.inventory.ui.home.HomeScreen
-import com.example.inventory.ui.machine.MachineDetailsDestination
-import com.example.inventory.ui.machine.MachineDetailsScreen
-import com.example.inventory.ui.machine.MachineEditDestination
-import com.example.inventory.ui.machine.MachineEditScreen
-import com.example.inventory.ui.machine.MachineEntryDestination
-import com.example.inventory.ui.machine.MachineEntryScreen
+
+
+import com.example.venda.ui.home.HomeDestination
+import com.example.venda.ui.home.HomeScreen
+import com.example.venda.ui.item.MachineDetailsDestination
+import com.example.venda.ui.item.MachineDetailsScreen
+import com.example.venda.ui.item.MachineEditDestination
+import com.example.venda.ui.item.MachineEditScreen
+import com.example.venda.ui.item.MachineEntryDestination
+import com.example.venda.ui.item.MachineEntryScreen
 
 /**
  * Provides Navigation graph for the application.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.navigation
+package com.example.venda.ui.navigation
 
 /**
  * Interface to describe the navigation destinations for the app
