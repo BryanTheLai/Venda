@@ -107,7 +107,7 @@ fun MachineDetailsScreen(
     ) { innerPadding ->
         MachineDetailsBody(
             machineDetailsUiState = uiState.value,
-            onSellMachine = { viewModel.reduceQuantityByOne() },
+            //onSellMachine = { viewModel.reduceQuantityByOne() },
             onDelete = {
                coroutineScope.launch {
                    viewModel.deleteMachine()
@@ -124,7 +124,7 @@ fun MachineDetailsScreen(
 @Composable
 private fun MachineDetailsBody(
     machineDetailsUiState: MachineDetailsUiState,
-    onSellMachine: () -> Unit,
+    //onSellMachine: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -195,14 +195,14 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            /*
+
             MachineDetailsRow(
-                labelResID = R.string.quantity_in_stock,
-                machineDetail = machine.quantity.toString(),
+                labelResID = R.string.machine_capacity,
+                machineDetail = machine.capacity.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
-            )*/
+            )
             MachineDetailsRow(
                 labelResID = R.string.price,
                 machineDetail = machine.formatedPrice(),

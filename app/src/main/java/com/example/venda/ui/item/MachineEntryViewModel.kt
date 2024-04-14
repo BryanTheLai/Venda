@@ -51,7 +51,7 @@ class MachineEntryViewModel(private val machinesRepository: MachinesRepository) 
                     && model.isNotBlank()
                     && dateInstalled.isNotBlank()
                     && location.isNotBlank()
-            //&& quantity.isNotBlank()
+                    && capacity.isNotBlank()
         }
     }
 
@@ -75,7 +75,7 @@ data class MachineDetails(
     val id: Int = 0,
     val name: String = "",
     val price: String = "",
-    val quantity: String = "",
+    val capacity: String = "",
     val model: String  = "",
     val dateInstalled: String  = "",
     val location: String  = "",
@@ -90,7 +90,7 @@ fun MachineDetails.toMachine(): Machine = Machine(
     id = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0,
+    capacity = capacity.toIntOrNull() ?: 0,
     model = model,
     dateInstalled = dateInstalled.toLongOrNull() ?: 0L,
     location = location,
@@ -116,7 +116,7 @@ fun Machine.toMachineDetails(): MachineDetails = MachineDetails(
     id = id,
     name = name,
     price = price.toString(),
-    quantity = quantity.toString(),
+    capacity = capacity.toString(),
     model = model,
     dateInstalled = dateInstalled.toString(),
     location = location,

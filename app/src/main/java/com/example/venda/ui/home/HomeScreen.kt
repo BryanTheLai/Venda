@@ -175,7 +175,7 @@ private fun InventoryList(
                     )
                 }
                 Text(
-                    text = stringResource(R.string.in_stock, machine.quantity),
+                    text = stringResource(R.string.capacity, machine.capacity),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

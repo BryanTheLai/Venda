@@ -155,12 +155,12 @@ fun MachineInputForm(
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
-        )/*
+        )
         OutlinedTextField(
-            value = machineDetails.quantity,
-            onValueChange = { onValueChange(machineDetails.copy(quantity = it)) },
+            value = machineDetails.capacity,
+            onValueChange = { onValueChange(machineDetails.copy(capacity = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.quantity_req)) },
+            label = { Text(stringResource(R.string.machine_capacity)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -169,7 +169,7 @@ fun MachineInputForm(
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
-        )*/
+        )
         OutlinedTextField(
             value = machineDetails.model, // MODEL
             onValueChange = { onValueChange(machineDetails.copy(model = it)) },
@@ -213,6 +213,7 @@ fun MachineInputForm(
             enabled = enabled,
             singleLine = false
         )
+
         /*
         if (enabled) {
             Text(
@@ -229,7 +230,7 @@ private fun MachineEntryScreenPreview() {
     VendaTheme {
         MachineEntryBody(machineUiState = MachineUiState(
             MachineDetails(
-                name = "Machine name", price = "10.00", quantity = "5"
+                name = "Machine name", price = "10.00", capacity = "5"
             )
         ), onMachineValueChange = {}, onSaveClick = {})
     }
