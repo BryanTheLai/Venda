@@ -76,7 +76,6 @@ fun MachineEntryScreen(
                           },
             modifier = Modifier
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         )
     }
@@ -91,7 +90,9 @@ fun MachineEntryBody(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        modifier = modifier
+            .padding(dimensionResource(id = R.dimen.padding_medium))
+            .verticalScroll(rememberScrollState())
         ) {
         MachineInputForm(
             machineDetails = machineUiState.machineDetails,
@@ -242,7 +243,7 @@ fun MachineStatusDropdownMenu(
     machineDetails: MachineDetails,
     onValueChange: (MachineDetails) -> Unit,
 ) {
-    val context = LocalContext.current
+    //val context = LocalContext.current
     val machineStatus = arrayOf("Operational", "Out of Stock", "Out of Service")
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(machineDetails.currentStatus) } // Use current status
