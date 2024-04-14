@@ -247,7 +247,10 @@ private fun MachineDetailsRow(
     @StringRes labelResID: Int, machineDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Text(stringResource(labelResID))
+        Text(
+            stringResource(labelResID),
+            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small))
+        )
         Spacer(modifier = Modifier.weight(1f))
         Text(text = machineDetail, fontWeight = FontWeight.Bold)
     }

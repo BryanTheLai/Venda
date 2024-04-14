@@ -39,7 +39,6 @@ import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Machine
 import com.example.venda.ui.AppViewModelProvider
-import com.example.venda.ui.item.formatedPrice
 import com.example.venda.ui.navigation.NavigationDestination
 
 
@@ -129,7 +128,7 @@ private fun InventoryList(
         items(items = machineList, key = { it.id }) { machine ->
             InventoryMachine(
                 machine = machine,
-                modifier = Modifier
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
                     .clickable { onMachineClick(machine) }
             )
         }
@@ -157,12 +156,12 @@ private fun InventoryList(
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = machine.formatedPrice(),
+                        text = machine.currentStatus,
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
                 Text(
-                    text = stringResource(R.string.machine_status, machine.currentStatus),
+                    text = machine.location,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
