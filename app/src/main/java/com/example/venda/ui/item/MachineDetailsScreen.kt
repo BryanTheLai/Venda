@@ -16,6 +16,7 @@
 
 package com.example.venda.ui.item
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -83,6 +85,7 @@ fun MachineDetailsScreen(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -111,6 +114,7 @@ fun MachineDetailsScreen(
             onDelete = {
                coroutineScope.launch {
                    viewModel.deleteMachine()
+                   Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show()
                    navigateBack()
                }
             },
@@ -228,6 +232,13 @@ fun MachineDetails(
             MachineDetailsRow(
                 labelResID = R.string.location,
                 machineDetail = machine.location,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            MachineDetailsRow(
+                labelResID = R.string.machine_status,
+                machineDetail = machine.currentStatus,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )

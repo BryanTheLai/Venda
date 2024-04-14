@@ -3,7 +3,7 @@
     <string name="confirmation">Confirmation</string>
     <string name="back_button">Back</string>
     <string name="delete">Delete</string>
-    <string name="delete_question">Are you sure you want to delete this Machine?\n\nThis Machine will be deleted permanently.</string>
+    <string name="delete_question">Are you sure you want to delete this Machine permanently?\n\nThis change is irreversible.</string>
     <string name="no_machine_description">Oops!\nNo machines in the inventory.\nTap + to add.</string>
     <string name="edit_machine_title">Edit Machine</string>
     <string name="machine">Machine</string>
@@ -14,6 +14,7 @@
     <string name="name">Name</string>">
     <string name="no">No</string>
     <string name="price">Price</string>
+    <string name="changes_saved">Changes Saved</string>
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="capacity">Capacity %d</string>
     <string name="machine_capacity">Capacity</string>
@@ -21,6 +22,7 @@
     <string name="model_name">Model Name</string>
     <string name="date_installed">Installed on (y/m/d)</string>
     <string name="location">Location</string>
+    <string name="machine_status">Machine Status</string>
     <string name="save_action">Save</string>
     <string name="sell">Sell</string>
     <string name="yes">Yes</string>

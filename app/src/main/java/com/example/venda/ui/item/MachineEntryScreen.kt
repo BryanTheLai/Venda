@@ -1,21 +1,6 @@
-/*
- * Copyright (C) 2023 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.venda.ui.item
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,15 +9,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -61,6 +54,7 @@ fun MachineEntryScreen(
     viewModel: MachineEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             InventoryTopAppBar(
@@ -76,6 +70,7 @@ fun MachineEntryScreen(
             onSaveClick = {
                 coroutineScope.launch {
                     viewModel.saveMachine()
+                    Toast.makeText(context, "Successfully created", Toast.LENGTH_SHORT).show()
                     navigateBack()
                 }
                           },
@@ -214,6 +209,11 @@ fun MachineInputForm(
             singleLine = false
         )
 
+        // Machine Status Field
+        MachineStatusDropdownMenu(machineDetails = machineDetails, onValueChange = onValueChange)
+
+
+
         /*
         if (enabled) {
             Text(
@@ -233,5 +233,55 @@ private fun MachineEntryScreenPreview() {
                 name = "Machine name", price = "10.00", capacity = "5"
             )
         ), onMachineValueChange = {}, onSaveClick = {})
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MachineStatusDropdownMenu(
+    machineDetails: MachineDetails,
+    onValueChange: (MachineDetails) -> Unit,
+) {
+    val context = LocalContext.current
+    val machineStatus = arrayOf("Operational", "Out of Stock", "Out of Service")
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(machineDetails.currentStatus) } // Use current status
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = {
+            expanded = !expanded
+        },
+    ) {
+        OutlinedTextField(
+            value = machineDetails.currentStatus,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(stringResource(R.string.machine_status)) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+        )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            machineStatus.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(text = item) },
+                    onClick = {
+                        selectedText = item
+                        onValueChange(machineDetails.copy(currentStatus = item)) // Update status
+                        expanded = false
+                        //Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
     }
 }

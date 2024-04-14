@@ -79,6 +79,7 @@ data class MachineDetails(
     val model: String  = "",
     val dateInstalled: String  = "",
     val location: String  = "",
+    val currentStatus: String  = "",
 )
 
 /**
@@ -94,6 +95,7 @@ fun MachineDetails.toMachine(): Machine = Machine(
     model = model,
     dateInstalled = dateInstalled.toLongOrNull() ?: 0L,
     location = location,
+    currentStatus = currentStatus,
 
 )
 
@@ -120,4 +122,6 @@ fun Machine.toMachineDetails(): MachineDetails = MachineDetails(
     model = model,
     dateInstalled = dateInstalled.toString(),
     location = location,
-)
+    currentStatus = currentStatus,
+
+    )

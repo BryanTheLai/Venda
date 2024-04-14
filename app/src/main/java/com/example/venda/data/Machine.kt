@@ -33,4 +33,6 @@ data class Machine(
     val model: String, // model
     val dateInstalled: Long, // date installed
     val location: String, // location
+    val currentStatus: String, // e.g., "operational", "out_of_stock", "out_of_service"
+
 )
