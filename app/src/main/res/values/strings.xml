@@ -15,6 +15,7 @@
     <string name="no">No</string>
     <string name="price">Price</string>
     <string name="changes_saved">Changes Saved</string>
+    <string name="serial_number">Serial Number</string>
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="capacity">Capacity %d</string>
     <string name="machine_capacity">Capacity</string>

@@ -159,7 +159,7 @@ private fun InventoryList(
                     )
                 }
                 Text(
-                    text = stringResource(R.string.capacity, machine.capacity),
+                    text = stringResource(R.string.machine_status, machine.currentStatus),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

@@ -180,6 +180,20 @@ fun MachineInputForm(
             enabled = enabled,
             singleLine = true
         )
+        OutlinedTextField(
+            value = machineDetails.serialNumber, // MODEL
+            onValueChange = { onValueChange(machineDetails.copy(serialNumber = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            label = { Text(stringResource(R.string.serial_number)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
 
         OutlinedTextField(
             value = machineDetails.dateInstalled, // DATE INSTALLED

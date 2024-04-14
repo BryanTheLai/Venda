@@ -32,10 +32,12 @@ class MachineEntryViewModel(private val machinesRepository: MachinesRepository) 
         return with(uiState) {
             name.isNotBlank()
                     && price.isNotBlank()
+                    && capacity.isNotBlank()
                     && model.isNotBlank()
                     && dateInstalled.isNotBlank()
                     && location.isNotBlank()
-                    && capacity.isNotBlank()
+                    && currentStatus.isNotBlank()
+                    && serialNumber.isNotBlank()
         }
     }
 
@@ -64,6 +66,7 @@ data class MachineDetails(
     val dateInstalled: String  = "",
     val location: String  = "",
     val currentStatus: String  = "",
+    val serialNumber: String  = "",
 )
 
 /**
@@ -80,6 +83,7 @@ fun MachineDetails.toMachine(): Machine = Machine(
     dateInstalled = dateInstalled.toLongOrNull() ?: 0L,
     location = location,
     currentStatus = currentStatus,
+    serialNumber = serialNumber,
 
 )
 
@@ -107,5 +111,6 @@ fun Machine.toMachineDetails(): MachineDetails = MachineDetails(
     dateInstalled = dateInstalled.toString(),
     location = location,
     currentStatus = currentStatus,
+    serialNumber = serialNumber,
 
     )

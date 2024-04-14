@@ -31,9 +31,12 @@ class MachineEditViewModel(
         return with(uiState) {
             name.isNotBlank()
                     && price.isNotBlank()
+                    && capacity.isNotBlank()
                     && model.isNotBlank()
                     && dateInstalled.isNotBlank()
                     && location.isNotBlank()
+                    && currentStatus.isNotBlank()
+                    && serialNumber.isNotBlank()
         }
     }
 

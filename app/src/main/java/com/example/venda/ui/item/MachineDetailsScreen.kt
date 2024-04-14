@@ -227,6 +227,13 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+            MachineDetailsRow(
+                labelResID = R.string.serial_number,
+                machineDetail = machine.serialNumber,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
         }
     }
 }
