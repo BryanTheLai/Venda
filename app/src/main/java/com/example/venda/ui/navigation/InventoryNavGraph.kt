@@ -36,7 +36,9 @@ fun InventoryNavHost(
                 navigateToMachineEntry = { navController.navigate(MachineEntryDestination.route) },
                 navigateToMachineUpdate = {
                     navController.navigate("${MachineDetailsDestination.route}/${it}")
-                }
+                },
+                navController = navController
+
             )
         }
         composable(route = MachineEntryDestination.route) {
@@ -53,7 +55,8 @@ fun InventoryNavHost(
         ) {
             MachineDetailsScreen(
                 navigateToEditMachine = { navController.navigate("${MachineEditDestination.route}/$it") },
-                navigateBack = { navController.navigateUp() }
+                navigateBack = { navController.navigateUp() },
+                navController = navController
             )
         }
         composable(

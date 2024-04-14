@@ -36,6 +36,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.venda.BottomNavBar
 import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Machine
@@ -65,7 +67,8 @@ fun MachineDetailsScreen(
     navigateToEditMachine: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MachineDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: MachineDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavController
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
@@ -90,7 +93,8 @@ fun MachineDetailsScreen(
                     contentDescription = stringResource(R.string.edit_machine_title),
                 )
             }
-        }, modifier = modifier
+        }, bottomBar = {BottomNavBar(navController = navController)}
+        , modifier = modifier
     ) { innerPadding ->
         MachineDetailsBody(
             machineDetailsUiState = uiState.value,

@@ -33,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.venda.BottomNavBar
 import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Machine
@@ -56,7 +58,8 @@ fun HomeScreen(
     navigateToMachineEntry: () -> Unit,
     navigateToMachineUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavController
 ) {
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -82,7 +85,7 @@ fun HomeScreen(
                     contentDescription = stringResource(R.string.machine_entry_title)
                 )
             }
-        },
+        },bottomBar = { BottomNavBar(navController = navController) }
     ) { innerPadding ->
         HomeBody(
             machineList = homeUiState.machineList,
