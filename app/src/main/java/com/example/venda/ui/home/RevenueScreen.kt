@@ -39,12 +39,13 @@ import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Revenue
 import com.example.venda.ui.AppViewModelProvider
+import com.example.venda.ui.item.formatedPrice
 import com.example.venda.ui.navigation.NavigationDestination
 
 
 object RevenueDestination : NavigationDestination {
     override val route = "revenue"
-    override val titleRes = R.string.app_name
+    override val titleRes = R.string.revenue_of_machine
 }
 
 /**
@@ -161,7 +162,7 @@ private fun InventoryList(
                     )
                 }
                 Text(
-                    text = "revenue: " + revenue.revenue.toString(),
+                    text = "revenue: " + revenue.formatedPrice(),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

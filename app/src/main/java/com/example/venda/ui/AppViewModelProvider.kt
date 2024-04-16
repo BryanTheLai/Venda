@@ -10,6 +10,8 @@ import com.example.venda.ui.home.HomeViewModel
 import com.example.venda.ui.item.MachineDetailsViewModel
 import com.example.venda.ui.item.MachineEditViewModel
 import com.example.venda.ui.item.MachineEntryViewModel
+import com.example.venda.ui.item.RevenueDetailsViewModel
+import com.example.venda.ui.item.RevenueEditViewModel
 import com.example.venda.ui.item.RevenueEntryViewModel
 import com.example.venda.ui.revenue.RevenueViewModel
 
@@ -26,6 +28,12 @@ object AppViewModelProvider {
                 inventoryApplication().container.machinesRepository
             )
         }
+        initializer {
+            RevenueEditViewModel(
+                this.createSavedStateHandle(),
+                inventoryApplication().container.revenuesRepository
+            )
+        }
         // Initializer for MachineEntryViewModel
         initializer {
             MachineEntryViewModel(inventoryApplication().container.machinesRepository)
@@ -40,6 +48,12 @@ object AppViewModelProvider {
             MachineDetailsViewModel(
                 this.createSavedStateHandle(),
                 inventoryApplication().container.machinesRepository
+            )
+        }
+        initializer {
+            RevenueDetailsViewModel(
+                this.createSavedStateHandle(),
+                inventoryApplication().container.revenuesRepository
             )
         }
 

@@ -20,6 +20,9 @@
     <string name="revenue_entry">Revenue</string>
     <string name="revenue_year">Year</string>
     <string name="revenue_month">Month</string>
+    <string name="month_revenue">Month Revenue</string>">
+    <string name="revenue_of_machine">Revenue of Machine</string>
+    <string name="revenue_detail_title">Revenue Details</string>
 
     <string name="name">Name</string>">
     <string name="no">No</string>
@@ -33,6 +36,8 @@
     <string name="quantity_req">Quantity in Stock*</string>
     <string name="model_name">Model Name</string>
     <string name="date_installed">Installed on (y/m/d)</string>
+    <string name="year_month">Year/Month</string>">
+
     <string name="location">Location</string>
     <string name="machine_status">Machine Status</string>
     <string name="revenue_status">Revenue Status</string>
