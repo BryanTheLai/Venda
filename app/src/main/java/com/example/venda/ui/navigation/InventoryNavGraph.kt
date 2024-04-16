@@ -1,20 +1,5 @@
-/*
- * Copyright (C) 2023 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.venda.ui.navigation
+
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,8 +8,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-
-
 import com.example.venda.ui.home.HomeDestination
 import com.example.venda.ui.home.HomeScreen
 import com.example.venda.ui.item.MachineDetailsDestination
@@ -33,6 +16,10 @@ import com.example.venda.ui.item.MachineEditDestination
 import com.example.venda.ui.item.MachineEditScreen
 import com.example.venda.ui.item.MachineEntryDestination
 import com.example.venda.ui.item.MachineEntryScreen
+import com.example.venda.ui.item.RevenueEntryDestination
+import com.example.venda.ui.item.RevenueEntryScreen
+import com.example.venda.ui.revenue.RevenueDestination
+import com.example.venda.ui.revenue.RevenueScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -52,11 +39,30 @@ fun InventoryNavHost(
                 navigateToMachineEntry = { navController.navigate(MachineEntryDestination.route) },
                 navigateToMachineUpdate = {
                     navController.navigate("${MachineDetailsDestination.route}/${it}")
-                }
+                },
+                navController = navController
+
             )
         }
+        composable(route = RevenueDestination.route) {
+            RevenueScreen(
+                navigateToRevenueEntry = { navController.navigate(RevenueEntryDestination.route) },
+                navigateToRevenueUpdate = {
+                    navController.navigate("${RevenueDestination.route}/${it}")
+                },
+                navController = navController
+
+            )
+        }
+
         composable(route = MachineEntryDestination.route) {
             MachineEntryScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(route = RevenueEntryDestination.route) {
+            RevenueEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
@@ -69,7 +75,8 @@ fun InventoryNavHost(
         ) {
             MachineDetailsScreen(
                 navigateToEditMachine = { navController.navigate("${MachineEditDestination.route}/$it") },
-                navigateBack = { navController.navigateUp() }
+                navigateBack = { navController.navigateUp() },
+                navController = navController
             )
         }
         composable(

@@ -12,6 +12,8 @@ import com.example.venda.ui.theme.VendaTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        SharedPreferencesHelper.init(this)
+        SharedPreferencesHelper.setSelectedItem(0)
         setContent {
             VendaTheme {
                 // A surface container using the 'background' color from the theme
@@ -19,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    InventoryApp() // MErgeed into main
+                    InventoryApp()
                 }
             }
         }

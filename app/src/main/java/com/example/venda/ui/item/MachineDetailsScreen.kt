@@ -1,21 +1,6 @@
-/*
- * Copyright (C) 2023 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.venda.ui.item
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,10 +31,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.venda.BottomNavBar
 import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Machine
@@ -79,10 +67,12 @@ fun MachineDetailsScreen(
     navigateToEditMachine: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MachineDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: MachineDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavController
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -103,14 +93,16 @@ fun MachineDetailsScreen(
                     contentDescription = stringResource(R.string.edit_machine_title),
                 )
             }
-        }, modifier = modifier
+        }, bottomBar = {BottomNavBar(navController = navController)}
+        , modifier = modifier
     ) { innerPadding ->
         MachineDetailsBody(
             machineDetailsUiState = uiState.value,
-            onSellMachine = { viewModel.reduceQuantityByOne() },
+            //onSellMachine = { viewModel.reduceQuantityByOne() },
             onDelete = {
                coroutineScope.launch {
                    viewModel.deleteMachine()
+                   Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show()
                    navigateBack()
                }
             },
@@ -124,7 +116,7 @@ fun MachineDetailsScreen(
 @Composable
 private fun MachineDetailsBody(
     machineDetailsUiState: MachineDetailsUiState,
-    onSellMachine: () -> Unit,
+    //onSellMachine: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -195,14 +187,14 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            /*
+
             MachineDetailsRow(
-                labelResID = R.string.quantity_in_stock,
-                machineDetail = machine.quantity.toString(),
+                labelResID = R.string.machine_capacity,
+                machineDetail = machine.capacity.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
-            )*/
+            )
             MachineDetailsRow(
                 labelResID = R.string.price,
                 machineDetail = machine.formatedPrice(),
@@ -232,6 +224,20 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+            MachineDetailsRow(
+                labelResID = R.string.machine_status,
+                machineDetail = machine.currentStatus,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            MachineDetailsRow(
+                labelResID = R.string.serial_number,
+                machineDetail = machine.serialNumber,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
         }
     }
 }
@@ -241,7 +247,10 @@ private fun MachineDetailsRow(
     @StringRes labelResID: Int, machineDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Text(stringResource(labelResID))
+        Text(
+            stringResource(labelResID),
+            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small))
+        )
         Spacer(modifier = Modifier.weight(1f))
         Text(text = machineDetail, fontWeight = FontWeight.Bold)
     }
