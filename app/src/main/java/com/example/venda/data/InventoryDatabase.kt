@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Machine::class], version = 5, exportSchema = false)
+@Database(entities = [Machine::class, Revenue::class], version = 6, exportSchema = false)
 abstract class InventoryDatabase: RoomDatabase() {
     abstract fun machineDao(): MachineDao
+    abstract fun revenueDao(): RevenueDao
+
 
     companion object {
         @Volatile

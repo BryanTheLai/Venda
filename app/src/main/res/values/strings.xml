@@ -11,6 +11,16 @@
     <string name="machine_entry_title">Add Machine</string>
     <string name="machine_name_req">Machine Name*</string>
     <string name="machine_price_req">Machine Price</string>
+
+    <string name="no_revenue_description">No revenues stored.\nTap + to add.</string>
+    <string name="edit_revenue_title">Edit Revenue</string>
+    <string name="revenue">Revenue</string>
+    <string name="revenue_entry_title">Revenue Details</string>
+    <string name="revenue_machine_id_req">Machine ID*</string>
+    <string name="revenue_entry">Revenue</string>
+    <string name="revenue_year">Year</string>
+    <string name="revenue_month">Month</string>
+
     <string name="name">Name</string>">
     <string name="no">No</string>
     <string name="price">Price</string>
@@ -19,11 +29,13 @@
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="capacity">Capacity %d</string>
     <string name="machine_capacity">Capacity</string>
+    <string name="revenue_capacity">Capacity</string>
     <string name="quantity_req">Quantity in Stock*</string>
     <string name="model_name">Model Name</string>
     <string name="date_installed">Installed on (y/m/d)</string>
     <string name="location">Location</string>
     <string name="machine_status">Machine Status</string>
+    <string name="revenue_status">Revenue Status</string>
     <string name="save_action">Save</string>
     <string name="sell">Sell</string>
     <string name="yes">Yes</string>
