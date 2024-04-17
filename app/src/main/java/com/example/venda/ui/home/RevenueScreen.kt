@@ -1,4 +1,4 @@
-package com.example.venda.ui.revenue
+package com.example.venda.ui.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -41,6 +41,7 @@ import com.example.venda.data.Revenue
 import com.example.venda.ui.AppViewModelProvider
 import com.example.venda.ui.item.formatedPrice
 import com.example.venda.ui.navigation.NavigationDestination
+import com.example.venda.ui.home.RevenueViewModel
 
 
 object RevenueDestination : NavigationDestination {

@@ -1,4 +1,4 @@
-package com.example.venda.ui.revenue
+package com.example.venda.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -44,6 +44,7 @@ fun RevenueEditScreen(
         modifier = modifier
     ) { innerPadding ->
         RevenueEntryBody(
+            machineId = viewModel.revenueUiState.revenueDetails.machineId.toInt(),
             revenueUiState = viewModel.revenueUiState,
             onRevenueValueChange = viewModel::updateUiState,
             onSaveClick = {

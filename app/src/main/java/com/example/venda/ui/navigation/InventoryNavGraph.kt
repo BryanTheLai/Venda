@@ -22,8 +22,8 @@ import com.example.venda.ui.item.RevenueEditDestination
 import com.example.venda.ui.item.RevenueEditScreen
 import com.example.venda.ui.item.RevenueEntryDestination
 import com.example.venda.ui.item.RevenueEntryScreen
-import com.example.venda.ui.revenue.RevenueDestination
-import com.example.venda.ui.revenue.RevenueScreen
+import com.example.venda.ui.home.RevenueDestination
+import com.example.venda.ui.home.RevenueScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -65,7 +65,11 @@ fun InventoryNavHost(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-        composable(route = RevenueEntryDestination.route) {
+        composable(route = RevenueEntryDestination.routeWithArgs,
+            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg,) {
+                type = NavType.IntType
+            })
+        ) {
             RevenueEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
@@ -74,11 +78,12 @@ fun InventoryNavHost(
 
         composable(
             route = MachineDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg) {
+            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg,) {
                 type = NavType.IntType
             })
         ) {
             MachineDetailsScreen(
+                navigateToRevenueEntry = { navController.navigate("${RevenueEntryDestination.route}/$it") },
                 navigateToEditMachine = { navController.navigate("${MachineEditDestination.route}/$it") },
                 navigateBack = { navController.navigateUp() },
                 navController = navController

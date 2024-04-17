@@ -12,7 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.venda.ui.home.HomeDestination
-import com.example.venda.ui.revenue.RevenueDestination
+import com.example.venda.ui.home.RevenueDestination
 
 
 @Composable

@@ -13,7 +13,7 @@ import com.example.venda.ui.item.MachineEntryViewModel
 import com.example.venda.ui.item.RevenueDetailsViewModel
 import com.example.venda.ui.item.RevenueEditViewModel
 import com.example.venda.ui.item.RevenueEntryViewModel
-import com.example.venda.ui.revenue.RevenueViewModel
+import com.example.venda.ui.home.RevenueViewModel
 
 
 /**
@@ -40,7 +40,7 @@ object AppViewModelProvider {
         }
 
         initializer {
-            RevenueEntryViewModel(inventoryApplication().container.revenuesRepository)
+            RevenueEntryViewModel(this.createSavedStateHandle(),inventoryApplication().container.revenuesRepository)
         }
 
         // Initializer for MachineDetailsViewModel

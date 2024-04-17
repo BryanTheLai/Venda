@@ -3,6 +3,7 @@ package com.example.venda.ui.item
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.venda.data.Revenue
 import com.example.venda.data.RevenuesRepository
@@ -11,7 +12,8 @@ import java.text.NumberFormat
 /**
  * ViewModel to validate and insert revenues in the Room database.
  */
-class RevenueEntryViewModel(private val revenuesRepository: RevenuesRepository) : ViewModel() {
+class RevenueEntryViewModel(savedStateHandle: SavedStateHandle, private val revenuesRepository: RevenuesRepository) : ViewModel() {
+    val machineDetails: Int = checkNotNull(savedStateHandle[MachineDetailsDestination.machineIdArg])
 
     /**
      * Holds current revenue ui state

@@ -34,6 +34,8 @@ import java.util.Locale
 object RevenueEntryDestination : NavigationDestination {
     override val route = "revenue_entry"
     override val titleRes = R.string.revenue_entry_title
+    const val machineIdArg = "machineId"
+    val routeWithArgs = "${route}/{$machineIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +46,7 @@ fun RevenueEntryScreen(
     canNavigateBack: Boolean = true,
     viewModel: RevenueEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+    val machineId = viewModel.machineDetails
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     Scaffold(
@@ -56,6 +59,7 @@ fun RevenueEntryScreen(
         }
     ) { innerPadding ->
         RevenueEntryBody(
+            machineId = machineId,
             revenueUiState = viewModel.revenueUiState,
             onRevenueValueChange = viewModel::updateUiState,
             onSaveClick = {
@@ -74,6 +78,7 @@ fun RevenueEntryScreen(
 
 @Composable
 fun RevenueEntryBody(
+    machineId: Int,
     revenueUiState: RevenueUiState,
     onRevenueValueChange: (RevenueDetails) -> Unit,
     onSaveClick: () -> Unit,
@@ -86,6 +91,7 @@ fun RevenueEntryBody(
             .verticalScroll(rememberScrollState())
         ) {
         RevenueInputForm(
+            machineId = machineId,
             revenueDetails = revenueUiState.revenueDetails,
             onValueChange = onRevenueValueChange,
             modifier = Modifier.fillMaxWidth()
@@ -103,6 +109,7 @@ fun RevenueEntryBody(
 
 @Composable
 fun RevenueInputForm(
+    machineId: Int,
     revenueDetails: RevenueDetails,
     modifier: Modifier = Modifier,
     onValueChange: (RevenueDetails) -> Unit = {},
@@ -112,9 +119,14 @@ fun RevenueInputForm(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
+        onValueChange(revenueDetails.copy(machineId = machineId.toString()))
+        /*
         OutlinedTextField(
-            value = revenueDetails.machineId, // NAME
-            onValueChange = { onValueChange(revenueDetails.copy(machineId = it)) },
+            value = machineId.toString(), // NAME
+            onValueChange = {
+                new ->
+                onValueChange(revenueDetails.copy(machineId = new))
+            },
             label = { Text(stringResource(R.string.revenue_machine_id_req)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = OutlinedTextFieldDefaults.colors(
@@ -123,9 +135,10 @@ fun RevenueInputForm(
                 disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             ),
             modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
+            enabled = false,
             singleLine = true
         )
+        */
         OutlinedTextField(
             value = revenueDetails.revenue, // PRICE
             onValueChange = {newValue ->

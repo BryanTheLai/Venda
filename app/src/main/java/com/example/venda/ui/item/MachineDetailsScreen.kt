@@ -11,8 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -64,6 +65,7 @@ object MachineDetailsDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MachineDetailsScreen(
+    navigateToRevenueEntry: (Int) -> Unit,
     navigateToEditMachine: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -83,14 +85,13 @@ fun MachineDetailsScreen(
             )
         }, floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditMachine(uiState.value.machineDetails.id) },
+                onClick = { navigateToRevenueEntry(uiState.value.machineDetails.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
-
             ) {
                 Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.edit_machine_title),
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add_revenue),
                 )
             }
         }, bottomBar = {BottomNavBar(navController = navController)}
@@ -98,7 +99,7 @@ fun MachineDetailsScreen(
     ) { innerPadding ->
         MachineDetailsBody(
             machineDetailsUiState = uiState.value,
-            //onSellMachine = { viewModel.reduceQuantityByOne() },
+            onEditMachine = { navigateToEditMachine(uiState.value.machineDetails.id) },
             onDelete = {
                coroutineScope.launch {
                    viewModel.deleteMachine()
@@ -116,7 +117,7 @@ fun MachineDetailsScreen(
 @Composable
 private fun MachineDetailsBody(
     machineDetailsUiState: MachineDetailsUiState,
-    //onSellMachine: () -> Unit,
+    onEditMachine: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -130,16 +131,14 @@ private fun MachineDetailsBody(
             machine = machineDetailsUiState.machineDetails.toMachine(),
             modifier = Modifier.fillMaxWidth()
         )
-        /*
+
         Button(
-            onClick = onSellMachine,
+            onClick = onEditMachine,
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.small,
-            enabled = !machineDetailsUiState.outOfStock
         ) {
-            Text(stringResource(R.string.sell))
+            Text(stringResource(R.string.edit_machine_title))
         }
-        */
 
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
