@@ -8,6 +8,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.venda.ui.csv.CsvScreen
+import com.example.venda.ui.csv.CsvScreenDestination
+import com.example.venda.ui.dashboard.DashboardScreen
+import com.example.venda.ui.dashboard.DashboardScreenDestination
 import com.example.venda.ui.home.HomeDestination
 import com.example.venda.ui.home.HomeScreen
 import com.example.venda.ui.home.RevenueDestination
@@ -127,6 +131,17 @@ fun InventoryNavHost(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
+        }
+
+
+        // CSV
+        composable(route = CsvScreenDestination.route) {
+            CsvScreen(navController = navController)
+        }
+
+        // Dashboard
+        composable(route = DashboardScreenDestination.route) {
+            DashboardScreen(navController = navController)
         }
     }
 }

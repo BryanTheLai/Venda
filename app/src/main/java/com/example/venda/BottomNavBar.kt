@@ -11,8 +11,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import com.example.venda.ui.csv.CsvScreenDestination
+import com.example.venda.ui.dashboard.DashboardScreenDestination
 import com.example.venda.ui.home.HomeDestination
-import com.example.venda.ui.home.RevenueDestination
 
 
 @Composable
@@ -44,8 +45,8 @@ fun BottomNavBar(
                     SharedPreferencesHelper.setSelectedItem(index)
                     when (index) {
                         0 -> navController.navigate(HomeDestination.route) // Assuming "home" is the route for mainscreen.kt
-                        1 -> navController.navigate(RevenueDestination.route) // Assuming "dashboard" is the route for dashboardscreen.kt
-                        2 -> navController.navigate("CsvScreen")// Handle CSV selection (optional, based on your navigation setup)
+                        1 -> navController.navigate(DashboardScreenDestination.route) // Assuming "dashboard" is the route for dashboardscreen.kt
+                        2 -> navController.navigate(CsvScreenDestination.route)// Handle CSV selection (optional, based on your navigation setup)
                     }
                 },
             )

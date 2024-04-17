@@ -26,6 +26,8 @@
     <string name="month_revenue">Month Revenue</string>">
     <string name="revenue_of_machine">Revenue of Machine</string>
     <string name="revenue_detail_title">Revenue Details</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="csv_title">CSV</string>
 
     <string name="name">Name</string>">
     <string name="no">No</string>
