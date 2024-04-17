@@ -46,7 +46,7 @@ fun RevenueEntryScreen(
     canNavigateBack: Boolean = true,
     viewModel: RevenueEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val machineId = viewModel.machineDetails
+    //val machineId = viewModel.machineDetails
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     Scaffold(
@@ -59,7 +59,7 @@ fun RevenueEntryScreen(
         }
     ) { innerPadding ->
         RevenueEntryBody(
-            machineId = machineId,
+            //machineId = machineId,
             revenueUiState = viewModel.revenueUiState,
             onRevenueValueChange = viewModel::updateUiState,
             onSaveClick = {
@@ -78,7 +78,7 @@ fun RevenueEntryScreen(
 
 @Composable
 fun RevenueEntryBody(
-    machineId: Int,
+    //machineId: Int,
     revenueUiState: RevenueUiState,
     onRevenueValueChange: (RevenueDetails) -> Unit,
     onSaveClick: () -> Unit,
@@ -91,7 +91,7 @@ fun RevenueEntryBody(
             .verticalScroll(rememberScrollState())
         ) {
         RevenueInputForm(
-            machineId = machineId,
+            //machineId = machineId,
             revenueDetails = revenueUiState.revenueDetails,
             onValueChange = onRevenueValueChange,
             modifier = Modifier.fillMaxWidth()
@@ -109,7 +109,7 @@ fun RevenueEntryBody(
 
 @Composable
 fun RevenueInputForm(
-    machineId: Int,
+    //machineId: Int,
     revenueDetails: RevenueDetails,
     modifier: Modifier = Modifier,
     onValueChange: (RevenueDetails) -> Unit = {},
@@ -119,10 +119,10 @@ fun RevenueInputForm(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        onValueChange(revenueDetails.copy(machineId = machineId.toString()))
-        /*
+        onValueChange(revenueDetails.copy(machineId = revenueDetails.machineId))
+
         OutlinedTextField(
-            value = machineId.toString(), // NAME
+            value = revenueDetails.machineId,
             onValueChange = {
                 new ->
                 onValueChange(revenueDetails.copy(machineId = new))
@@ -136,9 +136,9 @@ fun RevenueInputForm(
             ),
             modifier = Modifier.fillMaxWidth(),
             enabled = false,
-            singleLine = true
+            singleLine = true,
         )
-        */
+
         OutlinedTextField(
             value = revenueDetails.revenue, // PRICE
             onValueChange = {newValue ->

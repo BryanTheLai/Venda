@@ -6,18 +6,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -31,6 +33,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -43,6 +46,7 @@ import com.example.venda.InventoryTopAppBar
 import com.example.venda.R
 import com.example.venda.data.Machine
 import com.example.venda.ui.AppViewModelProvider
+import com.example.venda.ui.home.RevenueScreen
 import com.example.venda.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -65,6 +69,7 @@ object MachineDetailsDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MachineDetailsScreen(
+    navigateToRevenueUpdate: (Int) -> Unit,
     navigateToRevenueEntry: (Int) -> Unit,
     navigateToEditMachine: (Int) -> Unit,
     navigateBack: () -> Unit,
@@ -83,39 +88,45 @@ fun MachineDetailsScreen(
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
-        }, floatingActionButton = {
+        },/*
+        floatingActionButton = {
             FloatingActionButton(
                 onClick = { navigateToRevenueEntry(uiState.value.machineDetails.id) },
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_revenue),
                 )
             }
-        }, bottomBar = {BottomNavBar(navController = navController)}
-        , modifier = modifier
+        },*/
+        bottomBar = {BottomNavBar(navController = navController)}
     ) { innerPadding ->
         MachineDetailsBody(
             machineDetailsUiState = uiState.value,
             onEditMachine = { navigateToEditMachine(uiState.value.machineDetails.id) },
             onDelete = {
-               coroutineScope.launch {
-                   viewModel.deleteMachine()
-                   Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show()
-                   navigateBack()
-               }
+                coroutineScope.launch {
+                    viewModel.deleteMachine()
+                    Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show()
+                    navigateBack()
+                }
             },
-            modifier = Modifier
+            modifier = modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-        )
+            ,navigateToRevenueUpdate = navigateToRevenueUpdate,
+            navigateToRevenueEntry = {navigateToRevenueEntry(uiState.value.machineDetails.id)}
+            )
     }
 }
 
 @Composable
 private fun MachineDetailsBody(
+    navigateToRevenueEntry: () -> Unit,
+    navigateToRevenueUpdate: (Int) -> Unit,
     machineDetailsUiState: MachineDetailsUiState,
     onEditMachine: () -> Unit,
     onDelete: () -> Unit,
@@ -126,37 +137,78 @@ private fun MachineDetailsBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
+        Row {
+            OutlinedButton(
+                onClick = onEditMachine,
+                modifier = Modifier.weight(1f),
+                shape = MaterialTheme.shapes.small,
+            ) {
+                //Text(stringResource(R.string.edit_machine_title))
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(R.string.edit_machine_title),
+                )
+            }
+            Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+            if (deleteConfirmationRequired) {
+                DeleteConfirmationDialog(
+                    onDeleteConfirm = {
+                        deleteConfirmationRequired = false
+                        onDelete()
+                    },
+                    onDeleteCancel = { deleteConfirmationRequired = false },
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                )
+            }
+
+            Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+
+            OutlinedButton(
+                onClick = { deleteConfirmationRequired = true },
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier.weight(1f)
+            ) {
+                //Text(stringResource(R.string.delete_machine))
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.delete_machine),
+                )
+            }
+        }
 
         MachineDetails(
             machine = machineDetailsUiState.machineDetails.toMachine(),
             modifier = Modifier.fillMaxWidth()
         )
 
-        Button(
-            onClick = onEditMachine,
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.small,
-        ) {
-            Text(stringResource(R.string.edit_machine_title))
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            /*
+            Text(
+                text = stringResource(R.string.revenue_list),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )*/
+            Button(
+                onClick = navigateToRevenueEntry,
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small,
+            )  {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add_revenue),
+                )
+                Text(text = stringResource(R.string.revenue),)
+            }
         }
 
-        OutlinedButton(
-            onClick = { deleteConfirmationRequired = true },
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(R.string.delete))
-        }
-        if (deleteConfirmationRequired) {
-            DeleteConfirmationDialog(
-                onDeleteConfirm = {
-                    deleteConfirmationRequired = false
-                    onDelete()
-                },
-                onDeleteCancel = { deleteConfirmationRequired = false },
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
-            )
-        }
+        RevenueScreen(
+            navigateToRevenueUpdate = navigateToRevenueUpdate,
+            modifier = Modifier
+        )
     }
 }
 
@@ -251,7 +303,7 @@ private fun MachineDetailsRow(
             modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small))
         )
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = machineDetail, fontWeight = FontWeight.Bold)
+        Text(text = machineDetail.trim(), fontWeight = FontWeight.Bold)
     }
 }
 

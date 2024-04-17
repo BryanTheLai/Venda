@@ -14,6 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         SharedPreferencesHelper.init(this)
         SharedPreferencesHelper.setSelectedItem(0)
+        // Portrait only Screen
+        //this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
             VendaTheme {
                 // A surface container using the 'background' color from the theme

@@ -10,6 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.venda.ui.home.HomeDestination
 import com.example.venda.ui.home.HomeScreen
+import com.example.venda.ui.home.RevenueDestination
+import com.example.venda.ui.home.RevenueScreen
 import com.example.venda.ui.item.MachineDetailsDestination
 import com.example.venda.ui.item.MachineDetailsScreen
 import com.example.venda.ui.item.MachineEditDestination
@@ -22,8 +24,6 @@ import com.example.venda.ui.item.RevenueEditDestination
 import com.example.venda.ui.item.RevenueEditScreen
 import com.example.venda.ui.item.RevenueEntryDestination
 import com.example.venda.ui.item.RevenueEntryScreen
-import com.example.venda.ui.home.RevenueDestination
-import com.example.venda.ui.home.RevenueScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -48,13 +48,14 @@ fun InventoryNavHost(
 
             )
         }
+
         composable(route = RevenueDestination.route) {
             RevenueScreen(
-                navigateToRevenueEntry = { navController.navigate(RevenueEntryDestination.route) },
+                //navigateToRevenueEntry = { navController.navigate(RevenueEntryDestination.route) },
                 navigateToRevenueUpdate = {
                     navController.navigate("${RevenueDetailsDestination.route}/${it}")
                 },
-                navController = navController
+                //navController = navController
 
             )
         }
@@ -78,11 +79,12 @@ fun InventoryNavHost(
 
         composable(
             route = MachineDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg,) {
+            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg) {
                 type = NavType.IntType
             })
         ) {
             MachineDetailsScreen(
+                navigateToRevenueUpdate = { navController.navigate("${RevenueDetailsDestination.route}/${it}") },
                 navigateToRevenueEntry = { navController.navigate("${RevenueEntryDestination.route}/$it") },
                 navigateToEditMachine = { navController.navigate("${MachineEditDestination.route}/$it") },
                 navigateBack = { navController.navigateUp() },

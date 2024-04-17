@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RevenuesRepository {
     fun getRevenuesForRevenueStream(revenueId: Int): Flow<List<Revenue>>
+    fun getAllRevenuesForMachine(machineId: Int): Flow<List<Revenue>>
 
     fun getAllRevenuesStream(): Flow<List<Revenue>>
 

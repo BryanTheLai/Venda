@@ -7,6 +7,8 @@ class OfflineRevenuesRepository(private val revenueDao: RevenueDao) : RevenuesRe
         revenueDao.getRevenuesForRevenue(revenueId)
     override fun getAllRevenuesStream(): Flow<List<Revenue>> =
         revenueDao.getAllRevenues()
+    override fun getAllRevenuesForMachine(machineId: Int): Flow<List<Revenue>> =
+        revenueDao.getRevenuesForMachine(machineId)
 
     override suspend fun insertRevenue(revenue: Revenue) = revenueDao.insert(revenue)
     

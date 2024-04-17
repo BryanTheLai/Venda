@@ -18,7 +18,11 @@ class RevenueEntryViewModel(savedStateHandle: SavedStateHandle, private val reve
     /**
      * Holds current revenue ui state
      */
-    var revenueUiState by mutableStateOf(RevenueUiState())
+    var revenueUiState by mutableStateOf(
+        RevenueUiState(
+            revenueDetails = RevenueDetails(machineId = machineDetails.toString()),
+            isEntryValid = false
+    ))
         private set
 
     /**
@@ -36,6 +40,7 @@ class RevenueEntryViewModel(savedStateHandle: SavedStateHandle, private val reve
                     && month != ""  && month.toInt() < 13 && month.toInt() > 0
         }
     }
+
 
     suspend fun saveRevenue() {
         if (validateInput()) {

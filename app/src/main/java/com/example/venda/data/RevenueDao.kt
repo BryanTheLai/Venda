@@ -14,13 +14,13 @@ interface RevenueDao {
     suspend fun insert(revenue: Revenue)
 
 
-    @Query("SELECT * from revenues WHERE id = :id ORDER BY year, month ASC")
+    @Query("SELECT * from revenues WHERE id = :id ORDER BY year DESC, month ASC")
     fun getRevenuesForRevenue(id: Int): Flow<List<Revenue>>
 
-    @Query("SELECT * from revenues WHERE machineId = :machineId ORDER BY year, month ASC")
+    @Query("SELECT * from revenues WHERE machineId = :machineId ORDER BY year DESC, month ASC")
     fun getRevenuesForMachine(machineId: Int): Flow<List<Revenue>>
     
-    @Query("SELECT * from revenues ORDER BY year, month ASC")
+    @Query("SELECT * from revenues ORDER BY year DESC, month ASC")
     fun getAllRevenues(): Flow<List<Revenue>>
 
 
@@ -30,7 +30,7 @@ interface RevenueDao {
     @Delete
     suspend fun delete(revenue: Revenue)
 
-    @Query("SELECT * from revenues WHERE id = :id")
+    @Query("SELECT * from revenues WHERE id = :id ORDER BY year DESC, month ASC")
     fun getRevenue(id: Int): Flow<Revenue>
 
 
