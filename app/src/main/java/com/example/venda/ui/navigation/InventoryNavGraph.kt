@@ -10,16 +10,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.venda.ui.home.HomeDestination
 import com.example.venda.ui.home.HomeScreen
+import com.example.venda.ui.home.RevenueDestination
+import com.example.venda.ui.home.RevenueScreen
 import com.example.venda.ui.item.MachineDetailsDestination
 import com.example.venda.ui.item.MachineDetailsScreen
 import com.example.venda.ui.item.MachineEditDestination
 import com.example.venda.ui.item.MachineEditScreen
 import com.example.venda.ui.item.MachineEntryDestination
 import com.example.venda.ui.item.MachineEntryScreen
+import com.example.venda.ui.item.RevenueDetailsDestination
+import com.example.venda.ui.item.RevenueDetailsScreen
+import com.example.venda.ui.item.RevenueEditDestination
+import com.example.venda.ui.item.RevenueEditScreen
 import com.example.venda.ui.item.RevenueEntryDestination
 import com.example.venda.ui.item.RevenueEntryScreen
-import com.example.venda.ui.revenue.RevenueDestination
-import com.example.venda.ui.revenue.RevenueScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -44,13 +48,14 @@ fun InventoryNavHost(
 
             )
         }
+
         composable(route = RevenueDestination.route) {
             RevenueScreen(
-                navigateToRevenueEntry = { navController.navigate(RevenueEntryDestination.route) },
+                //navigateToRevenueEntry = { navController.navigate(RevenueEntryDestination.route) },
                 navigateToRevenueUpdate = {
-                    navController.navigate("${RevenueDestination.route}/${it}")
+                    navController.navigate("${RevenueDetailsDestination.route}/${it}")
                 },
-                navController = navController
+                //navController = navController
 
             )
         }
@@ -61,12 +66,17 @@ fun InventoryNavHost(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-        composable(route = RevenueEntryDestination.route) {
+        composable(route = RevenueEntryDestination.routeWithArgs,
+            arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg,) {
+                type = NavType.IntType
+            })
+        ) {
             RevenueEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
         }
+
         composable(
             route = MachineDetailsDestination.routeWithArgs,
             arguments = listOf(navArgument(MachineDetailsDestination.machineIdArg) {
@@ -74,11 +84,28 @@ fun InventoryNavHost(
             })
         ) {
             MachineDetailsScreen(
+                navigateToRevenueUpdate = { navController.navigate("${RevenueDetailsDestination.route}/${it}") },
+                navigateToRevenueEntry = { navController.navigate("${RevenueEntryDestination.route}/$it") },
                 navigateToEditMachine = { navController.navigate("${MachineEditDestination.route}/$it") },
                 navigateBack = { navController.navigateUp() },
                 navController = navController
             )
         }
+        composable(
+            route = RevenueDetailsDestination.routeWithArgs,
+            arguments = listOf(navArgument(RevenueDetailsDestination.revenueIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            RevenueDetailsScreen(
+                navigateToEditRevenue = { navController.navigate("${RevenueEditDestination.route}/$it") },
+                navigateBack = { navController.navigateUp() },
+                navController = navController
+            )
+        }
+
+
+
         composable(
             route = MachineEditDestination.routeWithArgs,
             arguments = listOf(navArgument(MachineEditDestination.machineIdArg) {
@@ -86,6 +113,17 @@ fun InventoryNavHost(
             })
         ) {
             MachineEditScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(
+            route = RevenueEditDestination.routeWithArgs,
+            arguments = listOf(navArgument(RevenueEditDestination.revenueIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            RevenueEditScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
