@@ -142,7 +142,7 @@ fun RevenueInputForm(
         OutlinedTextField(
             value = revenueDetails.revenue, // PRICE
             onValueChange = {newValue ->
-                if ( newValue.matches( Regex("^\\d+(?:\\.\\d{0,2})?$") ) ) {
+                if ( newValue.matches( Regex("^\\d+(?:\\.\\d{0,2})?$") ) || newValue == "" ) {
                     onValueChange(revenueDetails.copy(revenue = newValue))
                 }},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),

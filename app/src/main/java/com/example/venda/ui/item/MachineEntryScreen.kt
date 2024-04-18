@@ -137,7 +137,7 @@ fun MachineInputForm(
         OutlinedTextField(
             value = machineDetails.price, // PRICE
             onValueChange = {newValue ->
-                if ( newValue.matches( Regex("^\\d+(?:\\.\\d{0,2})?$") ) ) {
+                if ( newValue.matches( Regex("^\\d+(?:\\.\\d{0,2})?$") ) || newValue == "" ) {
                     onValueChange(machineDetails.copy(price = newValue))
                 }},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
