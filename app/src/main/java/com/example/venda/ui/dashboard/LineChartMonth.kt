@@ -21,24 +21,38 @@ import co.yml.charts.ui.linechart.model.ShadowUnderLine
 
 
 @Composable
-fun LineChart(pointsData: List<Point>) {
-    var steps = 5;
+fun LineChartMonth(pointsData: List<Point>) {
+    var xSteps = pointsData.size - 1;
+    var ySteps = 10;
     val yMax = pointsData.maxOf { it.y }
     val yMin = pointsData.minOf { it.y }
     //steps = yMax.toInt()
+    var xAxisStepSize = 10
+    if (pointsData.size < 7 )
+        xAxisStepSize = 100
+    else if (pointsData.size < 10)
+        xAxisStepSize = 80
+    else if (pointsData.size < 15)
+        xAxisStepSize = 50
+    else if (pointsData.size < 20)
+        xAxisStepSize = 30
+    else
+        xAxisStepSize = 20
+
 
     val xAxisData = AxisData.Builder()
-        .axisStepSize((yMax - yMin).dp)
-        .steps(pointsData.size - 1)
-        .labelData { i -> i.toString() }
+        .axisStepSize(xAxisStepSize.dp)
+        .steps(xSteps)
+        .labelData { i -> (i + 1).toString() }
         .labelAndAxisLinePadding(15.dp)
         .build()
 
     val yAxisData = AxisData.Builder()
-        .steps(steps)
+        .steps(ySteps)
         .labelAndAxisLinePadding(20.dp)
         .labelData { i ->
-            val yScale = (yMax - yMin) / steps
+            // Add yMin to get the negative axis values to the scale
+            val yScale = (yMax - yMin)/ySteps
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
@@ -60,7 +74,7 @@ fun LineChart(pointsData: List<Point>) {
         gridLines = GridLines(),
         backgroundColor = Color.White
     )
-    
+
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             .fillMaxWidth()

@@ -66,24 +66,42 @@ fun DashboardScreen(
         val currentYearRevenueData: List<Point> =
             listOf(
                 Point(1f, 40f), // Point(month in float, revenue of that month in float)
-                Point(2f, 90f),
-                Point(3f, 10f),
-                Point(4f, 60f),
-                Point(5f, 10f),
-                Point(7f, 60f),
-                Point(8f, 10f),
-                Point(9f, 60f),
-                Point(10f, 10f),
+                Point(2f, 50f),
+                Point(3f, 120f),
+                Point(4f, 760f),
+                Point(5f, 80f),
+                Point(6f, 80f),
+                Point(7f, 152f),
+                Point(8f, 100f),
+                Point(9f, 70f),
+                Point(10f, 30f),
                 Point(11f, 10f),
-                Point(12f, 10f),
+                Point(12f, 0f),
                 )
         val currentMonthRevenueData: List<Point> =
             listOf(
-                Point(0f, 40f), // Point(day in float, revenue of that day in float)
-                Point(1f, 90f),
-                Point(2f, 0f),
-                Point(3f, 60f),
-                Point(4f, 10f),
+                Point(1f, 100f), // Point(day in float, revenue of that day in float)
+                Point(2f, 80f),
+                Point(3f, 70f),
+                Point(4f, 60f),
+                Point(5f, 50f),
+                Point(6f, 100f),
+                Point(7f, 80f),
+                Point(8f, 70f),
+                Point(9f, 60f),
+                Point(10f, 80f),
+                Point(11f, 70f),
+                Point(12f, 60f),
+                Point(13f, 60f),
+                Point(14f, 50f),
+                Point(15f, 100f),
+                Point(16f, 80f),
+                Point(17f, 70f),
+                Point(18f, 60f),
+                Point(19f, 80f),
+                Point(20f, 70f),
+                Point(21f, 60f),
+                Point(22f, 60f),
 
             )
 
@@ -179,7 +197,7 @@ fun DashboardScreen(
                         fontSize = 20.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
-                    LineChart(currentYearRevenueData)
+                    LineChartYear(currentYearRevenueData)
                 }
             }
 
@@ -204,7 +222,7 @@ fun DashboardScreen(
                         fontSize = 20.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
-                    LineChart(currentMonthRevenueData)
+                    LineChartMonth(currentMonthRevenueData)
                 }
             }
 

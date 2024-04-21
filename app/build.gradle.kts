@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    // Charts
+    // Charts (https://github.com/codeandtheory/YCharts?tab=readme-ov-file)
     implementation("co.yml:ycharts:2.1.0")
 
 
