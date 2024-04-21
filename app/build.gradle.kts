@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.venda"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -52,6 +52,10 @@ android {
 }
 
 dependencies {
+    // Charts
+    implementation("co.yml:ycharts:2.1.0")
+
+
     implementation("androidx.room:room-runtime:2.5.1")
     ksp("androidx.room:room-compiler:2.5.1")
     implementation("androidx.room:room-ktx:2.5.1")
