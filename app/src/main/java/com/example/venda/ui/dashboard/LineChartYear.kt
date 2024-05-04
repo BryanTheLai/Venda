@@ -18,6 +18,7 @@ import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
+import kotlin.math.floor
 
 /*
 @Composable
@@ -104,7 +105,7 @@ fun LineChartYear(pointsData: List<Point>) {
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
             val yScale = (yMax - yMin)/ySteps
-            ((i * yScale) + yMin).formatToSinglePrecision()
+            floor((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
     val lineChartData = LineChartData(

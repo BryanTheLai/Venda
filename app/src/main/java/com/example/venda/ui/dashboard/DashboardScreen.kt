@@ -46,7 +46,7 @@ object DashboardScreenDestination : NavigationDestination {
 @Composable
 fun DashboardScreen(
     navController: NavController,
-    modifier: Modifier = Modifier,
+    //modifier: Modifier = Modifier,
     viewModel: DashboardViewModel = viewModel(factory = AppViewModelProvider.Factory),
 
     ) {
@@ -63,6 +63,7 @@ fun DashboardScreen(
         val dashboardCurrentYearRevenueUiState by viewModel.dashboardCurrentYearRevenueUiState.collectAsState()
         val dashboardCurrentMonthRevenueUiState by viewModel.dashboardCurrentMonthRevenueUiState.collectAsState()
         val dashboardMachineStatusUiState by viewModel.dashboardMachineStatusUiState.collectAsState()
+        val dashboardYearChartRevenueUiState by viewModel.dashboardYearChartRevenueUiState.collectAsState()
 
         val calendar: Calendar = Calendar.getInstance()
         val currentYear: Int = calendar.get(Calendar.YEAR)
@@ -71,26 +72,17 @@ fun DashboardScreen(
         val currentMonthRevenue = dashboardCurrentMonthRevenueUiState.currentMonthRevenue.toString() // Query
         val currentMachineStatusPairs: List<Pair<String, Int>> =
             dashboardMachineStatusUiState.machineStatusCount.map { it.currentStatus to it.count }
-//        val currentMachineStatus: List<Pair<String, Int>> = listOf(
-//            "Operational" to 10,
-//            "Out of Stock" to 5,
-//            "Out of Service" to 2
-//        )// Query
+
+        val yearChartRevenueData = dashboardYearChartRevenueUiState.yearRevenueData
+
         val currentYearRevenueData: List<Point> =
-            listOf(
-                Point(1f, 40f), // Point(month in float, revenue of that month in float)
-                Point(2f, 50f),
-                Point(3f, 120f),
-                Point(4f, 760f),
-                Point(5f, 80f),
-                Point(6f, 80f),
-                Point(7f, 152f),
-                Point(8f, 100f),
-                Point(9f, 70f),
-                Point(10f, 30f),
-                Point(11f, 10f),
-                Point(12f, 0f),
-                )
+            yearChartRevenueData.map {
+                data ->
+                Point(
+                    x = data.month.toFloat(),
+                    y = data.totalRevenue.toFloat())
+            }
+
         val currentMonthRevenueData: List<Point> =
             listOf(
                 Point(1f, 100f), // Point(day in float, revenue of that day in float)
@@ -212,37 +204,38 @@ fun DashboardScreen(
                         fontSize = 20.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
-                    LineChartYear(currentYearRevenueData)
+                    if (currentYearRevenueData.isNotEmpty()) {
+                        LineChartYear(currentYearRevenueData)
+                    }else {
+                        Text(text = "No data available for this year.")
+                    }
                 }
             }
 
             // Top 5 performing machines NOW: Bar Chart
-            Card (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(dimensionResource(id = R.dimen.padding_medium)),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color.White,
-                ),
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Revenue for this Month",
-                        modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
-                        fontSize = 20.sp, // Adjust the font size
-                        fontWeight = FontWeight.Medium
-                    )
-                    LineChartMonth(currentMonthRevenueData)
-                }
-            }
-
-
-
+//            Card (
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(dimensionResource(id = R.dimen.padding_medium)),
+//                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+//                colors = CardDefaults.cardColors(
+//                    containerColor = Color.White,
+//                ),
+//            ) {
+//                Column(
+//                    verticalArrangement = Arrangement.SpaceEvenly,
+//                    horizontalAlignment = Alignment.CenterHorizontally,
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text(
+//                        text = "Revenue for this Month",
+//                        modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
+//                        fontSize = 20.sp, // Adjust the font size
+//                        fontWeight = FontWeight.Medium
+//                    )
+//                    LineChartMonth(currentMonthRevenueData)
+//                }
+//            }
         }
     }
     // Dashboard UI

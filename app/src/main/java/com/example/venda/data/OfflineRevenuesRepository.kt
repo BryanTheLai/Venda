@@ -16,6 +16,8 @@ class OfflineRevenuesRepository(private val revenueDao: RevenueDao) : RevenuesRe
 
     override fun getCurrentMonthTotalRevenueStream(currentYear: Int, currentMonth: Int): Flow<Double?> =
         revenueDao.getCurrentMonthTotalRevenue(currentYear, currentMonth)
+    override fun getYearMonthRevenueStream(currentYear: Int): Flow<List<YearMonthRevenue>> =
+        revenueDao.getYearMonthRevenue(currentYear)
 
     override fun getRevenueStream(id: Int): Flow<Revenue?> = revenueDao.getRevenue(id)
 

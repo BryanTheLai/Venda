@@ -11,6 +11,7 @@ interface RevenuesRepository {
     suspend fun insertRevenue(revenue: Revenue)
     fun getCurrentYearTotalRevenueStream(currentYear: Int): Flow<Double?>
     fun getCurrentMonthTotalRevenueStream(currentYear: Int, currentMonth: Int): Flow<Double?>
+    fun getYearMonthRevenueStream(currentYear: Int): Flow<List<YearMonthRevenue>>
 
     fun getRevenueStream(id: Int): Flow<Revenue?>
     
