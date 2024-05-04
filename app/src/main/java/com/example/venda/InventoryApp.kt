@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.venda.ui.navigation.InventoryNavHost
@@ -30,8 +32,15 @@ fun InventoryTopAppBar(
     navigateUp: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(title) },
-        modifier = modifier,
+        title = { Text(title, fontSize = 23.sp, fontWeight = FontWeight.SemiBold) },
+//        modifier = modifier.drawBehind {
+//            drawLine(
+//                color = Color.LightGray, // Adjust the border color
+//                start = Offset(x = 0f, y = size.height),
+//                end = Offset(x = size.width , y = size.height),
+//                strokeWidth = 6f
+//            )
+//        },
         scrollBehavior = scrollBehavior,
         navigationIcon = {
             if (canNavigateBack) {

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 interface MachinesRepository {
 
     fun getAllMachinesStream(): Flow<List<Machine>>
+    fun getMachineStatusCountsStream(): Flow<List<MachineStatusCount>>
 
     fun getMachineStream(id: Int): Flow<Machine?>
 

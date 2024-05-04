@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 class OfflineMachinesRepository(private val machineDao: MachineDao) : MachinesRepository {
     override fun getAllMachinesStream(): Flow<List<Machine>> = machineDao.getAllMachines()
+    override fun getMachineStatusCountsStream(): Flow<List<MachineStatusCount>> = machineDao.getMachineStatusCounts()
 
     override fun getMachineStream(id: Int): Flow<Machine?> = machineDao.getMachine(id)
 

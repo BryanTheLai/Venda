@@ -23,6 +23,15 @@ interface RevenueDao {
     @Query("SELECT * from revenues ORDER BY year DESC, month ASC")
     fun getAllRevenues(): Flow<List<Revenue>>
 
+    @Query("SELECT SUM(revenue) AS totalRevenue FROM revenues WHERE year = :currentYear")
+    fun getCurrentYearTotalRevenue(currentYear: Int = 2024): Flow<Double?>
+
+    @Query("SELECT SUM(revenue) AS totalRevenue FROM revenues WHERE year = :currentYear AND month = :currentMonth")
+    fun getCurrentMonthTotalRevenue(currentYear: Int = 2024, currentMonth: Int = 1): Flow<Double?>
+
+    @Query("SELECT year, month, SUM(revenue) AS totalRevenue FROM revenues  WHERE year = :currentYear  GROUP BY year, month")
+    fun getYearMonthRevenue(currentYear: Int): Flow<List<YearMonthRevenue>>
+
 
     @Update
     suspend fun update(revenue: Revenue)
@@ -33,7 +42,9 @@ interface RevenueDao {
     @Query("SELECT * from revenues WHERE id = :id ORDER BY year DESC, month ASC")
     fun getRevenue(id: Int): Flow<Revenue>
 
-
-
+    @Query("DELETE FROM revenues WHERE machineId = :machineId")
+    suspend fun deleteByMachineId(machineId: Int)
 
 }
+
+data class YearMonthRevenue(val year: Int = 2024, val month: Int = 1, val totalRevenue: Double = 123.45)

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.venda.InventoryApplication
+import com.example.venda.ui.dashboard.DashboardViewModel
 import com.example.venda.ui.home.HomeViewModel
 import com.example.venda.ui.home.RevenueViewModel
 import com.example.venda.ui.item.MachineDetailsViewModel
@@ -47,7 +48,9 @@ object AppViewModelProvider {
         initializer {
             MachineDetailsViewModel(
                 this.createSavedStateHandle(),
-                inventoryApplication().container.machinesRepository
+                inventoryApplication().container.machinesRepository,
+                inventoryApplication().container.revenuesRepository
+
             )
         }
         initializer {
@@ -66,6 +69,13 @@ object AppViewModelProvider {
         initializer {
             RevenueViewModel(
                 this.createSavedStateHandle(),
+                inventoryApplication().container.revenuesRepository)
+        }
+
+        initializer {
+            DashboardViewModel(
+                this.createSavedStateHandle(),
+                inventoryApplication().container.machinesRepository,
                 inventoryApplication().container.revenuesRepository)
         }
 
