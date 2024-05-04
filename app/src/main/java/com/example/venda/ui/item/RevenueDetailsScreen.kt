@@ -171,22 +171,22 @@ fun RevenueDetails(
                 dimensionResource(id = R.dimen.padding_medium)
             )
         ) {
-            //DELETE LATER
-            RevenueDetailsRow(
-                labelResID = R.string.name,
-                revenueDetail = revenue.id.toString(),
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.padding_medium)
-                )
-            )
-            RevenueDetailsRow(
-                labelResID = R.string.name,
-                revenueDetail = revenue.machineId.toString(),
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.padding_medium)
-                )
-            )
-            // DELETE TILL HERE
+//            //DELETE LATER
+//            RevenueDetailsRow(
+//                labelResID = R.string.name,
+//                revenueDetail = revenue.id.toString(),
+//                modifier = Modifier.padding(
+//                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+//                )
+//            )
+//            RevenueDetailsRow(
+//                labelResID = R.string.name,
+//                revenueDetail = revenue.machineId.toString(),
+//                modifier = Modifier.padding(
+//                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+//                )
+//            )
+//            // DELETE TILL HERE
             RevenueDetailsRow(
                 labelResID = R.string.month_revenue,
                 revenueDetail = revenue.formatedPrice(),

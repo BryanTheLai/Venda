@@ -3,6 +3,7 @@ package com.example.venda.ui.item
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -157,45 +158,53 @@ fun RevenueInputForm(
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
-            value = revenueDetails.year,
-            onValueChange = {newValue ->
-                if (newValue.matches(Regex("^\\d*$"))) {
-                    onValueChange(revenueDetails.copy(year = newValue))
-                }
-                            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.revenue_year)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = revenueDetails.month, // Convert month to string
-            onValueChange = {newValue ->
-                if ( newValue.matches( Regex("^(?:[1-9]|1[0-2])$") ) ) {
-                    onValueChange(revenueDetails.copy(month = newValue))
-                }
-                if (newValue == "" || newValue == "0") {
-                    onValueChange(revenueDetails.copy(month = newValue))
-                }
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.revenue_month)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
+
+        Row (
+            horizontalArrangement = Arrangement
+                .spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        ) {
+
+
+            OutlinedTextField(
+                value = revenueDetails.year,
+                onValueChange = { newValue ->
+                    if (newValue.matches(Regex("^\\d*$"))) {
+                        onValueChange(revenueDetails.copy(year = newValue))
+                    }
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                label = { Text(stringResource(R.string.revenue_year)) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                ),
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                enabled = enabled,
+                singleLine = true
+            )
+            OutlinedTextField(
+                value = revenueDetails.month, // Convert month to string
+                onValueChange = { newValue ->
+                    if (newValue.matches(Regex("^(?:[1-9]|1[0-2])$"))) {
+                        onValueChange(revenueDetails.copy(month = newValue))
+                    }
+                    if (newValue == "" || newValue == "0") {
+                        onValueChange(revenueDetails.copy(month = newValue))
+                    }
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                label = { Text(stringResource(R.string.revenue_month)) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                ),
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                enabled = enabled,
+                singleLine = true
+            )
+        }
 
 
     }

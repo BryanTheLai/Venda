@@ -17,7 +17,7 @@
     <string name="edit_revenue_title">Edit Revenue</string>
     <string name="revenue">Revenue</string>
     <string name="add_revenue">Add Revenue</string>
-    <string name="revenue_entry_title">Revenue Details</string>
+    <string name="revenue_entry_title">Revenue Entry</string>
     <string name="revenue_machine_id_req">Machine ID*</string>
     <string name="revenue_entry">Revenue</string>
     <string name="revenue_year">Year</string>
