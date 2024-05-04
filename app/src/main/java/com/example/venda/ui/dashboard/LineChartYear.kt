@@ -1,7 +1,7 @@
 package com.example.venda.ui.dashboard
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -80,10 +80,12 @@ fun LineChartYear(pointsData: List<Point>) {
     //steps = yMax.toInt()
     var xAxisStepSize = 10
     if (pointsData.size < 3 )
-        xAxisStepSize = 200
-    else if (pointsData.size < 5)
+        xAxisStepSize = 150
+    else if (pointsData.size < 4)
+        xAxisStepSize = 130
+    else if (pointsData.size < 6)
         xAxisStepSize = 110
-    else if (pointsData.size < 7)
+    else if (pointsData.size < 8)
         xAxisStepSize = 90
     else if (pointsData.size < 10)
         xAxisStepSize = 70
@@ -99,9 +101,20 @@ fun LineChartYear(pointsData: List<Point>) {
         .labelAndAxisLinePadding(15.dp)
         .build()
 
+    var yLabelPadding = 20
+    if (yMax < 9) {
+        yLabelPadding = 20
+    }else if (yMax < 999) {
+        yLabelPadding = 25
+    }else if (yMax < 9999) {
+        yLabelPadding = 30
+    }else {
+        yLabelPadding = 40
+    }
+
     val yAxisData = AxisData.Builder()
         .steps(ySteps)
-        .labelAndAxisLinePadding(20.dp)
+        .labelAndAxisLinePadding(yLabelPadding.dp)
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
             val yScale = (yMax - yMin)/ySteps
@@ -129,8 +142,8 @@ fun LineChartYear(pointsData: List<Point>) {
 
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
+            //.fillMaxWidth()
+            .height(300.dp).width(500.dp)
         ,lineChartData = lineChartData
     )
 

@@ -3,7 +3,6 @@ package com.example.venda.ui.dashboard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -160,10 +159,10 @@ fun DashboardScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.padding_medium)),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color.White,
                 ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
@@ -172,12 +171,21 @@ fun DashboardScreen(
                 ) {
                     Text(
                         text = "Machine Status",
-                        modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
                         fontSize = 25.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
+
                     // Machine Status Current: Table
-                    StatusTable(currentMachineStatusPairs)
+                    if (currentMachineStatusPairs.isNotEmpty()) {
+                        StatusTable(currentMachineStatusPairs)
+                    } else {
+                        Text(
+                            text = "Not Enough Data",
+                            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
+                            fontSize = 20.sp, // Adjust the font size
+                        )
+                    }
                 }
 
             }
@@ -200,14 +208,19 @@ fun DashboardScreen(
                 ) {
                     Text(
                         text = "Revenue for $currentYear",
-                        modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
-                        fontSize = 20.sp, // Adjust the font size
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
+                        fontSize = 25.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
-                    if (currentYearRevenueData.isNotEmpty()) {
+                    if (currentYearRevenueData.isNotEmpty() && currentYearRevenueData.size > 1) {
                         LineChartYear(currentYearRevenueData)
                     }else {
-                        Text(text = "No data available for this year.")
+                        Text(
+                            text = "Not Enough Data",
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
+                            fontSize = 20.sp, // Adjust the font size
+                        )
+
                     }
                 }
             }
@@ -259,38 +272,41 @@ fun BigNumberDisplay(title: String, number: Double? = 0.0, modifier: Modifier = 
 fun StatusTable(
     statusData: List<Pair<String, Int>>
     = listOf(
-    "Operational" to 10,
-    "Out of Stock" to 5,
-    "Out of Service" to 2
+    "Operational" to 0,
+    "Out of Stock" to 0,
+    "Out of Service" to 0
     )
 ) {
     Column(
         modifier = Modifier
             //.fillMaxWidth()
-            .padding(16.dp),
+            .padding(start = dimensionResource(id = R.dimen.padding_small), end = dimensionResource(id = R.dimen.padding_small)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
             modifier = Modifier
                 //.fillMaxWidth()
-                .padding(bottom = 8.dp),
+                .padding(dimensionResource(id = R.dimen.padding_small)),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "Status",
-                modifier = Modifier.weight(1f),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .weight(1f)
+                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                ,fontSize = 20.sp,
+                fontWeight = FontWeight.Thin,
 
-            )
-            Spacer(modifier = Modifier.weight(0.5f))
+                )
             Text(
                 text = "Count",
-                modifier = Modifier.weight(1f),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
+                modifier = Modifier
+                    .weight(1f)
+                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                ,fontSize = 20.sp,
+                fontWeight = FontWeight.Thin
             )
         }
 
@@ -298,7 +314,7 @@ fun StatusTable(
             Row(
                 modifier = Modifier
                     //.fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                    .padding(dimensionResource(id = R.dimen.padding_small)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -306,7 +322,6 @@ fun StatusTable(
                     modifier = Modifier.weight(1f),
                     fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.weight(0.5f))
                 Text(
                     text = count.toString(),
                     modifier = Modifier.weight(1f),
