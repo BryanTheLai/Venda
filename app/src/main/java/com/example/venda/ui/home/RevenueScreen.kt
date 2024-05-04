@@ -66,7 +66,7 @@ private fun RevenueBody(
                 .padding(horizontal = dimensionResource(id = R.dimen.padding_extra_large))
         ) {
             Text(
-                text = "Date ( Y/m )",
+                text = "Date (Month/Year)",
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(Modifier.weight(1f))
@@ -145,7 +145,7 @@ private fun InventoryRevenue(
                     style = MaterialTheme.typography.titleSmall,
                 )*/
                 Text(
-                    text = revenue.year.toString() + "/" + revenue.month.toString() ,
+                    text = revenue.month.toString() + "/" + revenue.year.toString() ,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.weight(1f))

@@ -15,7 +15,10 @@ data class Machine(
     val price: Double,
     val capacity: Int,
     val model: String, // model
-    val dateInstalled: Long, // date installed
+    // Second Option
+    val year: Int, // Record year only
+    val month: Int, // Record month only
+    val day: Int, // Record day only
     val location: String, // location
     val currentStatus: String, // e.g., "operational", "out_of_stock", "out_of_service"
     val serialNumber: String,

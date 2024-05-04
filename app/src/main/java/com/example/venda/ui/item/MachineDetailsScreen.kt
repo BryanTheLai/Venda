@@ -138,7 +138,10 @@ private fun MachineDetailsBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
-        Row {
+        Row (
+            horizontalArrangement = Arrangement
+                .spacedBy(dimensionResource(id = R.dimen.padding_small))
+        ) {
             OutlinedButton(
                 onClick = onEditMachine,
                 modifier = Modifier.weight(1f),
@@ -150,7 +153,6 @@ private fun MachineDetailsBody(
                     contentDescription = stringResource(R.string.edit_machine_title),
                 )
             }
-            Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
             if (deleteConfirmationRequired) {
                 DeleteConfirmationDialog(
                     onDeleteConfirm = {
@@ -261,10 +263,13 @@ fun MachineDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+            val installYear = machine.year
+            val installMonth = machine.month
+            val installDay = machine.day
 
             MachineDetailsRow(
                 labelResID = R.string.date_installed,
-                machineDetail = convertLongToTime(machine.dateInstalled),
+                machineDetail = "$installDay/$installMonth/$installYear",
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
@@ -301,10 +306,11 @@ private fun MachineDetailsRow(
     Row(modifier = modifier) {
         Text(
             stringResource(labelResID),
-            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small))
+            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small)),
+            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = machineDetail.trim(), fontWeight = FontWeight.Bold)
+        Text(text = machineDetail.trim())
     }
 }
 

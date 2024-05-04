@@ -196,7 +196,7 @@ fun RevenueDetails(
             )
             RevenueDetailsRow(
                 labelResID = R.string.year_month,
-                revenueDetail = revenue.year.toString() + "/"+ revenue.month.toString(),
+                revenueDetail = "${revenue.year}/${revenue.month}",
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )

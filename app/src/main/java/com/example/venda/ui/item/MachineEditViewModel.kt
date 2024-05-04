@@ -33,7 +33,12 @@ class MachineEditViewModel(
                     && price.isNotBlank()
                     && capacity.isNotBlank()
                     && model.isNotBlank()
-                    && dateInstalled.isNotBlank()
+                    && year.isNotBlank()
+                    && year != "0"
+                    && month.isNotBlank()
+                    && month != "0"
+                    && day.isNotBlank()
+                    && day != "0"
                     && location.isNotBlank()
                     && currentStatus.isNotBlank()
                     && serialNumber.isNotBlank()

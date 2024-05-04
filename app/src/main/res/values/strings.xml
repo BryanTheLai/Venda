@@ -12,6 +12,10 @@
     <string name="machine_entry_title">Add Machine</string>
     <string name="machine_name_req">Machine Name*</string>
     <string name="machine_price_req">Machine Price</string>
+    <string name="machine_day">Installed Day</string>
+    <string name="machine_month">Installed Month</string>
+    <string name="machine_year">Installed Year</string>
+
 
     <string name="no_revenue_description">No revenues stored.\nTap + to add.</string>
     <string name="edit_revenue_title">Edit Revenue</string>
@@ -40,7 +44,7 @@
     <string name="revenue_capacity">Capacity</string>
     <string name="quantity_req">Quantity in Stock*</string>
     <string name="model_name">Model Name</string>
-    <string name="date_installed">Date (y/m/d)</string>
+    <string name="date_installed">Date (Day/Month/Year)</string>
     <string name="year_month">Year/Month</string>">
 
     <string name="location">Location</string>

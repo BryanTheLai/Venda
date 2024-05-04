@@ -34,7 +34,12 @@ class MachineEntryViewModel(private val machinesRepository: MachinesRepository) 
                     && price.isNotBlank()
                     && capacity.isNotBlank()
                     && model.isNotBlank()
-                    && dateInstalled.isNotBlank()
+                    && year.isNotBlank()
+                    && year != "0"
+                    && month.isNotBlank()
+                    && month != "0"
+                    && day.isNotBlank()
+                    && day != "0"
                     && location.isNotBlank()
                     && currentStatus.isNotBlank()
                     && serialNumber.isNotBlank()
@@ -63,7 +68,9 @@ data class MachineDetails(
     val price: String = "",
     val capacity: String = "",
     val model: String  = "",
-    val dateInstalled: String  = "",
+    val year: String  = "",
+    val month: String  = "",
+    val day: String  = "",
     val location: String  = "",
     val currentStatus: String  = "",
     val serialNumber: String  = "",
@@ -80,7 +87,9 @@ fun MachineDetails.toMachine(): Machine = Machine(
     price = price.toDoubleOrNull() ?: 0.0,
     capacity = capacity.toIntOrNull() ?: 0,
     model = model,
-    dateInstalled = dateInstalled.toLongOrNull() ?: 0L,
+    year = year.toIntOrNull() ?: 0,
+    month = month.toIntOrNull() ?: 0,
+    day = day.toIntOrNull() ?: 0,
     location = location,
     currentStatus = currentStatus,
     serialNumber = serialNumber,
@@ -108,7 +117,9 @@ fun Machine.toMachineDetails(): MachineDetails = MachineDetails(
     price = price.toString(),
     capacity = capacity.toString(),
     model = model,
-    dateInstalled = dateInstalled.toString(),
+    year = year.toString(),
+    month = month.toString(),
+    day = day.toString(),
     location = location,
     currentStatus = currentStatus,
     serialNumber = serialNumber,

@@ -3,6 +3,7 @@ package com.example.venda.ui.item
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -154,7 +155,10 @@ fun MachineInputForm(
         )
         OutlinedTextField(
             value = machineDetails.capacity,
-            onValueChange = { onValueChange(machineDetails.copy(capacity = it)) },
+            onValueChange = {     newValue ->
+                if (newValue.matches(Regex("^\\d*$"))) {
+                onValueChange(machineDetails.copy(capacity = newValue))
+                }},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.machine_capacity)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -194,12 +198,15 @@ fun MachineInputForm(
             enabled = enabled,
             singleLine = true
         )
-
         OutlinedTextField(
-            value = machineDetails.dateInstalled, // DATE INSTALLED
-            onValueChange = { onValueChange(machineDetails.copy(dateInstalled = it)) },
+            value = machineDetails.year, // Year INSTALLED
+            onValueChange = { newValue ->
+                if (newValue.matches(Regex("^\\d*$"))) {
+                onValueChange(machineDetails.copy(year = newValue))
+                }
+            } ,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.date_installed)) },
+            label = { Text(stringResource(R.string.machine_year)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -209,6 +216,55 @@ fun MachineInputForm(
             enabled = enabled,
             singleLine = true
         )
+        Row (
+            horizontalArrangement = Arrangement
+                .spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        ) {
+            OutlinedTextField(
+                value = machineDetails.day, // day INSTALLED
+                onValueChange = {newValue ->
+                    //if (newValue.matches(Regex("^(?:0?[1-9]|1\\d|2\\d|3[01])\$\n"))) {
+                    if (newValue.matches(Regex("^(?:[1-9]|1\\d|2\\d|3[01])$"))) {
+                        onValueChange(machineDetails.copy(day = newValue))
+                    }
+                    if (newValue == "" || newValue == "0") {
+                        onValueChange(machineDetails.copy(day = newValue))
+                    }
+                                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                label = { Text(stringResource(R.string.machine_day)) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                ),
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                enabled = enabled,
+                singleLine = true
+            )
+            OutlinedTextField(
+                value = machineDetails.month, // month INSTALLED
+                onValueChange = { newValue ->
+                    if (newValue.matches(Regex("^(?:[1-9]|1[0-2])$"))) {
+                        onValueChange(machineDetails.copy(month = newValue))
+                    }
+                    if (newValue == "" || newValue == "0") {
+                        onValueChange(machineDetails.copy(month = newValue))
+                    }
+                                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                label = { Text(stringResource(R.string.machine_month)) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                ),
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                enabled = enabled,
+                singleLine = true
+            )
+        }
+
         OutlinedTextField(
             value = machineDetails.location, // LOCATION
             onValueChange = { onValueChange(machineDetails.copy(location = it)) },
@@ -274,7 +330,9 @@ fun MachineStatusDropdownMenu(
             readOnly = true,
             label = { Text(stringResource(R.string.machine_status)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth(),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
