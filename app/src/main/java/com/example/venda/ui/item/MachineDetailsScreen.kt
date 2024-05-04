@@ -110,6 +110,7 @@ fun MachineDetailsScreen(
             onDelete = {
                 coroutineScope.launch {
                     viewModel.deleteMachine()
+                    viewModel.deleteRevenue()
                     Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show()
                     navigateBack()
                 }

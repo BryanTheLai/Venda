@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.venda.data.MachinesRepository
+import com.example.venda.data.RevenuesRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.stateIn
  */
 class MachineDetailsViewModel(
     savedStateHandle: SavedStateHandle,
-    private val machinesRepository: MachinesRepository
+    private val machinesRepository: MachinesRepository,
+    private val revenuesRepository: RevenuesRepository
 ) : ViewModel() {
 
     private val machineId: Int = checkNotNull(savedStateHandle[MachineDetailsDestination.machineIdArg])
@@ -46,6 +48,10 @@ class MachineDetailsViewModel(
 
     suspend fun deleteMachine() {
         machinesRepository.deleteMachine(uiState.value.machineDetails.toMachine())
+    }
+
+    suspend fun deleteRevenue() {
+        revenuesRepository.deleteByMachineId(machineId)
     }
 
 }

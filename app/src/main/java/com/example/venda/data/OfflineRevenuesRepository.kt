@@ -20,6 +20,7 @@ class OfflineRevenuesRepository(private val revenueDao: RevenueDao) : RevenuesRe
     override fun getRevenueStream(id: Int): Flow<Revenue?> = revenueDao.getRevenue(id)
 
     override suspend fun deleteRevenue(revenue: Revenue) = revenueDao.delete(revenue)
+    override suspend fun deleteByMachineId(machineId: Int) = revenueDao.deleteByMachineId(machineId)
 
     override suspend fun updateRevenue(revenue: Revenue) = revenueDao.update(revenue)
 }

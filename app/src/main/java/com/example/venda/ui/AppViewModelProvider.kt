@@ -48,7 +48,9 @@ object AppViewModelProvider {
         initializer {
             MachineDetailsViewModel(
                 this.createSavedStateHandle(),
-                inventoryApplication().container.machinesRepository
+                inventoryApplication().container.machinesRepository,
+                inventoryApplication().container.revenuesRepository
+
             )
         }
         initializer {

@@ -38,7 +38,7 @@ interface RevenueDao {
     @Query("SELECT * from revenues WHERE id = :id ORDER BY year DESC, month ASC")
     fun getRevenue(id: Int): Flow<Revenue>
 
-
-
+    @Query("DELETE FROM revenues WHERE machineId = :machineId")
+    suspend fun deleteByMachineId(machineId: Int)
 
 }

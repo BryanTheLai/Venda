@@ -15,6 +15,7 @@ interface RevenuesRepository {
     fun getRevenueStream(id: Int): Flow<Revenue?>
     
     suspend fun deleteRevenue(revenue: Revenue)
+    suspend fun deleteByMachineId(machineId: Int)
 
     suspend fun updateRevenue(revenue: Revenue)
 
