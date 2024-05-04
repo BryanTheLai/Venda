@@ -11,7 +11,12 @@ class OfflineRevenuesRepository(private val revenueDao: RevenueDao) : RevenuesRe
         revenueDao.getRevenuesForMachine(machineId)
 
     override suspend fun insertRevenue(revenue: Revenue) = revenueDao.insert(revenue)
-    
+    override fun getCurrentYearTotalRevenueStream(currentYear: Int): Flow<Double?> =
+        revenueDao.getCurrentYearTotalRevenue(currentYear)
+
+    override fun getCurrentMonthTotalRevenueStream(currentYear: Int, currentMonth: Int): Flow<Double?> =
+        revenueDao.getCurrentMonthTotalRevenue(currentYear, currentMonth)
+
     override fun getRevenueStream(id: Int): Flow<Revenue?> = revenueDao.getRevenue(id)
 
     override suspend fun deleteRevenue(revenue: Revenue) = revenueDao.delete(revenue)

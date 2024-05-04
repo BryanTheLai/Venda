@@ -23,6 +23,11 @@ interface RevenueDao {
     @Query("SELECT * from revenues ORDER BY year DESC, month ASC")
     fun getAllRevenues(): Flow<List<Revenue>>
 
+    @Query("SELECT SUM(revenue) AS totalRevenue FROM revenues WHERE year = :currentYear")
+    fun getCurrentYearTotalRevenue(currentYear: Int = 2024): Flow<Double?>
+
+    @Query("SELECT SUM(revenue) AS totalRevenue FROM revenues WHERE year = :currentYear AND month = :currentMonth")
+    fun getCurrentMonthTotalRevenue(currentYear: Int = 2024, currentMonth: Int = 1): Flow<Double?>
 
     @Update
     suspend fun update(revenue: Revenue)

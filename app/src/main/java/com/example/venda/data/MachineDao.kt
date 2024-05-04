@@ -24,4 +24,13 @@ interface MachineDao {
 
     @Query("SELECT * from machines ORDER BY name ASC")
     fun getAllMachines(): Flow<List<Machine>>
+
+    @Query("SELECT currentStatus as currentStatus, COUNT(*) AS count FROM machines GROUP BY currentStatus")
+    fun getMachineStatusCounts(): Flow<List<MachineStatusCount>>
+
 }
+
+data class MachineStatusCount(
+    val currentStatus: String,
+    val count: Int
+)
