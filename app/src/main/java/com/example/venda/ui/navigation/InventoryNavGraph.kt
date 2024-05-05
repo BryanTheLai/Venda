@@ -136,7 +136,10 @@ fun InventoryNavHost(
 
         // CSV
         composable(route = CsvScreenDestination.route) {
-            CsvScreen(navController = navController)
+            CsvScreen(
+                navController = navController,
+                )
+
         }
 
         // Dashboard

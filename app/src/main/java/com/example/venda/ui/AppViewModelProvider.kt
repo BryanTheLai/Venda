@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.venda.InventoryApplication
+import com.example.venda.ui.csv.CsvViewModel
 import com.example.venda.ui.dashboard.DashboardViewModel
 import com.example.venda.ui.home.HomeViewModel
 import com.example.venda.ui.home.RevenueViewModel
@@ -63,6 +64,10 @@ object AppViewModelProvider {
         // Initializer for HomeViewModel
         initializer {
             HomeViewModel(inventoryApplication().container.machinesRepository)
+        }
+        // Initializer for CsvViewModel
+        initializer {
+            CsvViewModel(inventoryApplication().container.machinesRepository)
         }
 
         // Initializer for RevenueViewModel
