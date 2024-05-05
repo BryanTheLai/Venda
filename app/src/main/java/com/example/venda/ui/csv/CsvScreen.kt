@@ -32,6 +32,8 @@ import com.example.venda.R
 import com.example.venda.data.Machine
 import com.example.venda.ui.AppViewModelProvider
 import com.example.venda.ui.navigation.NavigationDestination
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 object CsvScreenDestination : NavigationDestination {
@@ -85,11 +87,8 @@ fun CsvScreen(
                 }) {
                     Text(text = "Get All Machines as CSV")
                 }
-                Text(text = "$csvString")
             }
-
         }
-
     }
 }
 
@@ -113,10 +112,13 @@ fun listToCsv(machineDetails: List<Machine>): String {
 }
 
 fun openFilePicker(saveFileLauncher: ActivityResultLauncher<Intent>) {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    val date = LocalDateTime.now().format(formatter)
+
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
-        type = "text/txt"
-        putExtra(Intent.EXTRA_TITLE, "output.txt")
+        type = "text/csv"
+        putExtra(Intent.EXTRA_TITLE, "Machines-$date")
     }
     saveFileLauncher.launch(intent)
 }
@@ -132,3 +134,4 @@ fun saveFile(context: Context, csvString: String, uri: Uri) {
         Toast.makeText(context, "Error saving CSV file", Toast.LENGTH_LONG).show()
     }
 }
+
