@@ -10,11 +10,20 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -22,8 +31,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.venda.BottomNavBar
@@ -72,26 +84,81 @@ fun CsvScreen(
         bottomBar = { BottomNavBar(navController = navController) }
     ) { innerPadding ->
         Column (
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
             ) {
             if (data.isEmpty()) {
                 Text(
-                    text = "No Machines",
+                    text = "No Machines Available",
                 )
             } else {
                 Button(
                     onClick = {
-                    openFilePicker(saveFileLauncher)
-                }) {
+                        openFilePicker(saveFileLauncher)
+                    },
+                    shape = MaterialTheme.shapes.small,
+                ) {
                     Text(text = "Get All Machines as CSV")
+                }
+                Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+                Text(
+                    text = "Preview of the First 5 Machines",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                )
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        Row(
+                            modifier = Modifier.
+                            padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            TableCell(text = "Name", weight = .4f)
+                            TableCell(text = "Price", weight = .4f)
+                            TableCell(text = "Capacity", weight = .3f)
+                            // Add more Text components for other properties as needed
+                        }
+                    }
+                    items(data.take(5)) { machine ->
+                        MachineRow(machine)
+                    }
                 }
             }
         }
     }
 }
+@Composable
+fun MachineRow(machine: Machine) {
+    Row(
+        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TableCell(text = "${machine.name}", weight = .4f)
+        TableCell(text = "${machine.price}", weight = .4f)
+        TableCell(text = "${machine.capacity}", weight = .3f)
+        // Add more Text components for other properties as needed
+    }
+}
 
+@Composable
+fun RowScope.TableCell(
+    text: String,
+    weight: Float
+) {
+    Text(
+        text = text,
+        Modifier
+            .border(1.dp, Color.Black)
+            .weight(weight)
+            .padding(8.dp)
+    )
+}
 // Function to convert list to CSV (placed outside of composable)
 fun listToCsv(machineDetails: List<Machine>): String {
     val stringBuilder = StringBuilder()
@@ -134,4 +201,6 @@ fun saveFile(context: Context, csvString: String, uri: Uri) {
         Toast.makeText(context, "Error saving CSV file", Toast.LENGTH_LONG).show()
     }
 }
+
+
 
