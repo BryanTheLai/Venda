@@ -1,5 +1,6 @@
 package com.example.venda.ui.dashboard
 
+import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -72,9 +73,26 @@ fun LineChartYear(pointsData: List<Point>) {
 }*/
 
 @Composable
-fun LineChartYear(pointsData: List<Point>) {
-    val xSteps = pointsData.size + 2;
-    val ySteps = 8;
+fun LineChartYear(pointsDataVar: List<Point>) {
+    val pointToAdd = Point(x = 1f, y = 0f)
+
+    val pointsData = mutableListOf<Point>().apply {
+        Log.d("DashboardScreen", "pointsDataVar $pointsDataVar")
+        if (none { it.x == pointToAdd.x}) {
+            Log.d("DashboardScreen", "if pointsDataVar $pointsDataVar")
+            add(pointToAdd)
+        }
+        Log.d("DashboardScreen", "addAll $pointsDataVar")
+        addAll(pointsDataVar)
+    }
+    Log.d("DashboardScreen", "OUT $pointsData")
+    // if pointsData has 2 points with 1.0, remove pointsData[0]
+     if (pointsData.size > 1 && pointsData[0].x == pointsData[1].x) {
+        Log.d("DashboardScreen", "Removing duplicate point with x=1")
+        pointsData.removeAt(0)
+     }
+    val xSteps = pointsData.size + 2
+    val ySteps = 8
     val yMax = pointsData.maxOf { it.y }
     val yMin = pointsData.minOf { it.y }
     //steps = yMax.toInt()

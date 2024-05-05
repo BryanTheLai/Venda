@@ -1,6 +1,5 @@
 package com.example.venda.ui.dashboard
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -82,19 +81,6 @@ fun DashboardScreen(
                     x = data.month.toFloat(),
                     y = data.totalRevenue.toFloat())
             }
-        val pointToAdd = Point(x = 1f, y = 0f)
-
-        val updatedData = mutableListOf<Point>().apply {
-            if (none { it.x == pointToAdd.x && it.y == pointToAdd.y }) {
-                add(pointToAdd)
-                addAll(currentYearRevenueData)
-            } else {
-                val filteredData = currentYearRevenueData.filter { it != pointToAdd }
-                addAll(filteredData)
-                //  remove pointToAdd if exist
-            }
-        }
-        Log.d("DashboardScreen", "updatedData: $updatedData")
 
 //        val currentMonthRevenueData: List<Point> =
 //            listOf(
@@ -227,7 +213,7 @@ fun DashboardScreen(
                         fontWeight = FontWeight.Medium
                     )
                     if (currentYearRevenueData.isNotEmpty() && currentYearRevenueData.size > 1) {
-                        LineChartYear(updatedData)
+                        LineChartYear(currentYearRevenueData)
                     }else {
                         Text(
                             text = "Not Enough Data",
@@ -268,7 +254,7 @@ fun DashboardScreen(
     // Dashboard UI
 }
 @Composable
-fun BigNumberDisplay(title: String, number: Double? = 0.0, modifier: Modifier = Modifier) {
+fun BigNumberDisplay(modifier: Modifier = Modifier, title: String, number: Double? = 0.0) {
     var result = number
     if (number == null) {
         result = 0.0
