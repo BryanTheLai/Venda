@@ -73,26 +73,25 @@ fun LineChartYear(pointsData: List<Point>) {
 
 @Composable
 fun LineChartYear(pointsData: List<Point>) {
-    var xSteps = pointsData.size - 1;
-    var ySteps = 10;
+    val xSteps = pointsData.size + 2;
+    val ySteps = 8;
     val yMax = pointsData.maxOf { it.y }
     val yMin = pointsData.minOf { it.y }
     //steps = yMax.toInt()
-    var xAxisStepSize = 10
-    if (pointsData.size < 3 )
-        xAxisStepSize = 150
+    val xAxisStepSize = if (pointsData.size < 3 )
+        150
     else if (pointsData.size < 4)
-        xAxisStepSize = 130
+        130
     else if (pointsData.size < 6)
-        xAxisStepSize = 110
+        110
     else if (pointsData.size < 8)
-        xAxisStepSize = 90
+        90
     else if (pointsData.size < 10)
-        xAxisStepSize = 70
+        70
     else if (pointsData.size < 12)
-        xAxisStepSize = 40
+        40
     else
-        xAxisStepSize = 30
+        30
 
     val xAxisData = AxisData.Builder()
         .axisStepSize(xAxisStepSize.dp)
@@ -101,15 +100,14 @@ fun LineChartYear(pointsData: List<Point>) {
         .labelAndAxisLinePadding(15.dp)
         .build()
 
-    var yLabelPadding = 20
-    if (yMax < 9) {
-        yLabelPadding = 20
+    val yLabelPadding: Int = if (yMax < 9) {
+        20
     }else if (yMax < 999) {
-        yLabelPadding = 25
+        25
     }else if (yMax < 9999) {
-        yLabelPadding = 30
+        30
     }else {
-        yLabelPadding = 40
+        40
     }
 
     val yAxisData = AxisData.Builder()

@@ -1,5 +1,6 @@
 package com.example.venda.ui.dashboard
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -81,33 +82,46 @@ fun DashboardScreen(
                     x = data.month.toFloat(),
                     y = data.totalRevenue.toFloat())
             }
+        val pointToAdd = Point(x = 1f, y = 0f)
 
-        val currentMonthRevenueData: List<Point> =
-            listOf(
-                Point(1f, 100f), // Point(day in float, revenue of that day in float)
-                Point(2f, 80f),
-                Point(3f, 70f),
-                Point(4f, 60f),
-                Point(5f, 50f),
-                Point(6f, 100f),
-                Point(7f, 80f),
-                Point(8f, 70f),
-                Point(9f, 60f),
-                Point(10f, 80f),
-                Point(11f, 70f),
-                Point(12f, 60f),
-                Point(13f, 60f),
-                Point(14f, 50f),
-                Point(15f, 100f),
-                Point(16f, 80f),
-                Point(17f, 70f),
-                Point(18f, 60f),
-                Point(19f, 80f),
-                Point(20f, 70f),
-                Point(21f, 60f),
-                Point(22f, 60f),
+        val updatedData = mutableListOf<Point>().apply {
+            if (none { it.x == pointToAdd.x && it.y == pointToAdd.y }) {
+                add(pointToAdd)
+                addAll(currentYearRevenueData)
+            } else {
+                val filteredData = currentYearRevenueData.filter { it != pointToAdd }
+                addAll(filteredData)
+                //  remove pointToAdd if exist
+            }
+        }
+        Log.d("DashboardScreen", "updatedData: $updatedData")
 
-            )
+//        val currentMonthRevenueData: List<Point> =
+//            listOf(
+//                Point(1f, 100f), // Point(day in float, revenue of that day in float)
+//                Point(2f, 80f),
+//                Point(3f, 70f),
+//                Point(4f, 60f),
+//                Point(5f, 50f),
+//                Point(6f, 100f),
+//                Point(7f, 80f),
+//                Point(8f, 70f),
+//                Point(9f, 60f),
+//                Point(10f, 80f),
+//                Point(11f, 70f),
+//                Point(12f, 60f),
+//                Point(13f, 60f),
+//                Point(14f, 50f),
+//                Point(15f, 100f),
+//                Point(16f, 80f),
+//                Point(17f, 70f),
+//                Point(18f, 60f),
+//                Point(19f, 80f),
+//                Point(20f, 70f),
+//                Point(21f, 60f),
+//                Point(22f, 60f),
+//
+//            )
 
 
         Column(
@@ -213,7 +227,7 @@ fun DashboardScreen(
                         fontWeight = FontWeight.Medium
                     )
                     if (currentYearRevenueData.isNotEmpty() && currentYearRevenueData.size > 1) {
-                        LineChartYear(currentYearRevenueData)
+                        LineChartYear(updatedData)
                     }else {
                         Text(
                             text = "Not Enough Data",
@@ -297,7 +311,7 @@ fun StatusTable(
                     .weight(1f)
                     //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
-                fontWeight = FontWeight.Thin,
+                fontWeight = FontWeight.Medium,
 
                 )
             Text(
@@ -306,7 +320,7 @@ fun StatusTable(
                     .weight(1f)
                     //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
-                fontWeight = FontWeight.Thin
+                fontWeight = FontWeight.Medium
             )
         }
 
