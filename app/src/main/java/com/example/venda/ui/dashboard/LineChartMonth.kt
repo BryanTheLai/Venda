@@ -2,6 +2,7 @@ package com.example.venda.ui.dashboard
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -72,7 +73,7 @@ fun LineChartMonth(pointsData: List<Point>) {
         xAxisData = xAxisData,
         yAxisData = yAxisData,
         gridLines = GridLines(),
-        backgroundColor = Color.White
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer
     )
 
     co.yml.charts.ui.linechart.LineChart(
