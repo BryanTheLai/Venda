@@ -1,7 +1,9 @@
 package com.example.venda.ui.dashboard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,11 +47,13 @@ fun LineChartMonth(pointsData: List<Point>) {
         .steps(xSteps)
         .labelData { i -> (i + 1).toString() }
         .labelAndAxisLinePadding(15.dp)
+        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
         .build()
 
     val yAxisData = AxisData.Builder()
         .steps(ySteps)
         .labelAndAxisLinePadding(20.dp)
+        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
             val yScale = (yMax - yMin)/ySteps
@@ -72,13 +76,13 @@ fun LineChartMonth(pointsData: List<Point>) {
         xAxisData = xAxisData,
         yAxisData = yAxisData,
         gridLines = GridLines(),
-        backgroundColor = Color.White
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer
     )
-
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
+            .background(MaterialTheme.colorScheme.primaryContainer)
         ,lineChartData = lineChartData
     )
 
