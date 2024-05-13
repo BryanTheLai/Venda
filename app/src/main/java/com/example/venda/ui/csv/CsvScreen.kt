@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -95,39 +95,45 @@ fun CsvScreen(
                     text = "No Machines Available",
                 )
             } else {
-                Button(
-                    onClick = {
-                        openFilePicker(saveFileLauncher)
-                    },
-                    shape = MaterialTheme.shapes.small,
-                ) {
-                    Text(text = "Get All Machines as CSV")
-                }
-                Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-                Text(
-                    text = "Preview of the First 5 Machines",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
-                )
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    item {
-                        Row(
-                            modifier = Modifier.
-                            padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            TableCell(text = "Name", weight = .4f)
-                            TableCell(text = "Price", weight = .4f)
-                            TableCell(text = "Capacity", weight = .3f)
-                            // Add more Text components for other properties as needed
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = "Preview of the First 5 Machines",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                            .align(Alignment.CenterHorizontally),
+                        fontWeight = FontWeight.W400
+                    )
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        item {
+                            Row(
+                                modifier = Modifier.
+                                padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                TableCell(text = "Name", weight = .4f)
+                                TableCell(text = "Price", weight = .4f)
+                                TableCell(text = "Capacity", weight = .3f)
+                                // Add more Text components for other properties as needed
+                            }
+                        }
+                        items(data.take(5)) { machine ->
+                            MachineRow(machine)
                         }
                     }
-                    items(data.take(5)) { machine ->
-                        MachineRow(machine)
+                    Button(
+                        onClick = {
+                            openFilePicker(saveFileLauncher)
+                        },
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(text = "Get All Machines as CSV")
                     }
+                    Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_extra_large)))
+
                 }
             }
         }

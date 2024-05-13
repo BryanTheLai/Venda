@@ -10,6 +10,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -18,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,7 +76,7 @@ fun DashboardScreen(
 
         val currentYearRevenueData: List<Point> =
             yearChartRevenueData.map {
-                data ->
+                    data ->
                 Point(
                     x = data.month.toFloat(),
                     y = data.totalRevenue.toFloat())
@@ -124,7 +124,8 @@ fun DashboardScreen(
                     .padding(dimensionResource(id = R.dimen.padding_medium)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
             ) {
                 Column(
@@ -161,7 +162,8 @@ fun DashboardScreen(
                     .padding(dimensionResource(id = R.dimen.padding_medium)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
             ) {
                 Column(
@@ -198,7 +200,8 @@ fun DashboardScreen(
                     .padding(dimensionResource(id = R.dimen.padding_medium)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
             ) {
                 Column(
@@ -272,9 +275,9 @@ fun BigNumberDisplay(modifier: Modifier = Modifier, title: String, number: Doubl
 fun StatusTable(
     statusData: List<Pair<String, Int>>
     = listOf(
-    "Operational" to 0,
-    "Out of Stock" to 0,
-    "Out of Service" to 0
+        "Operational" to 0,
+        "Out of Stock" to 0,
+        "Out of Service" to 0
     )
 ) {
     Column(
@@ -295,7 +298,7 @@ fun StatusTable(
                 text = "Status",
                 modifier = Modifier
                     .weight(1f)
-                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
 
@@ -304,7 +307,7 @@ fun StatusTable(
                 text = "Count",
                 modifier = Modifier
                     .weight(1f)
-                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -331,4 +334,3 @@ fun StatusTable(
         }
     }
 }
-

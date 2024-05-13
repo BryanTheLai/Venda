@@ -63,7 +63,7 @@ fun LineChartYear(pointsData: List<Point>) {
         gridLines = GridLines(),
         backgroundColor = Color.White
     )
-    
+
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,10 +87,10 @@ fun LineChartYear(pointsDataVar: List<Point>) {
     }
     Log.d("DashboardScreen", "OUT $pointsData")
     // if pointsData has 2 points with 1.0, remove pointsData[0]
-     if (pointsData.size > 1 && pointsData[0].x == pointsData[1].x) {
+    if (pointsData.size > 1 && pointsData[0].x == pointsData[1].x) {
         Log.d("DashboardScreen", "Removing duplicate point with x=1")
         pointsData.removeAt(0)
-     }
+    }
     val xSteps = pointsData.size + 2
     val ySteps = 8
     val yMax = pointsData.maxOf { it.y }

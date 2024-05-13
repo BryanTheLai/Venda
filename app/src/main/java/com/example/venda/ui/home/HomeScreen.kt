@@ -141,7 +141,11 @@ private fun InventoryList(
     ) {
         Card(
             modifier = modifier,
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         ) {
             Column(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
