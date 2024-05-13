@@ -1,10 +1,8 @@
 package com.example.venda.ui.dashboard
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,7 +63,7 @@ fun LineChartYear(pointsData: List<Point>) {
         gridLines = GridLines(),
         backgroundColor = Color.White
     )
-    
+
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             .fillMaxWidth()
@@ -89,10 +87,10 @@ fun LineChartYear(pointsDataVar: List<Point>) {
     }
     Log.d("DashboardScreen", "OUT $pointsData")
     // if pointsData has 2 points with 1.0, remove pointsData[0]
-     if (pointsData.size > 1 && pointsData[0].x == pointsData[1].x) {
+    if (pointsData.size > 1 && pointsData[0].x == pointsData[1].x) {
         Log.d("DashboardScreen", "Removing duplicate point with x=1")
         pointsData.removeAt(0)
-     }
+    }
     val xSteps = pointsData.size + 2
     val ySteps = 8
     val yMax = pointsData.maxOf { it.y }
@@ -118,7 +116,6 @@ fun LineChartYear(pointsDataVar: List<Point>) {
         .steps(xSteps)
         .labelData { i -> (i + 1).toString() }
         .labelAndAxisLinePadding(15.dp)
-        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
         .build()
 
     val yLabelPadding: Int = if (yMax < 9) {
@@ -133,14 +130,12 @@ fun LineChartYear(pointsDataVar: List<Point>) {
 
     val yAxisData = AxisData.Builder()
         .steps(ySteps)
+        .labelAndAxisLinePadding(yLabelPadding.dp)
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
             val yScale = (yMax - yMin)/ySteps
             floor((i * yScale) + yMin).formatToSinglePrecision()
-        }
-        .labelAndAxisLinePadding(yLabelPadding.dp)
-        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
-        .build()
+        }.build()
 
     val lineChartData = LineChartData(
         linePlotData = LinePlotData(
@@ -158,15 +153,13 @@ fun LineChartYear(pointsDataVar: List<Point>) {
         xAxisData = xAxisData,
         yAxisData = yAxisData,
         gridLines = GridLines(),
-        backgroundColor = MaterialTheme.colorScheme.primaryContainer
+        backgroundColor = Color.White
     )
 
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             //.fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
             .height(300.dp).width(500.dp)
-            //.background(MaterialTheme.colorScheme.primaryContainer)
         ,lineChartData = lineChartData
     )
 

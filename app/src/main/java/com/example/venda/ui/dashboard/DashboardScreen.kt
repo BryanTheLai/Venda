@@ -1,6 +1,5 @@
 package com.example.venda.ui.dashboard
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -78,7 +76,7 @@ fun DashboardScreen(
 
         val currentYearRevenueData: List<Point> =
             yearChartRevenueData.map {
-                data ->
+                    data ->
                 Point(
                     x = data.month.toFloat(),
                     y = data.totalRevenue.toFloat())
@@ -203,31 +201,26 @@ fun DashboardScreen(
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
             ) {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = "Revenue for $currentYear",
-                        modifier = Modifier
-                            .padding(dimensionResource(id = R.dimen.padding_small))
-                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
                         fontSize = 25.sp, // Adjust the font size
-                        fontWeight = FontWeight.Medium,
+                        fontWeight = FontWeight.Medium
                     )
                     if (currentYearRevenueData.isNotEmpty() && currentYearRevenueData.size > 1) {
                         LineChartYear(currentYearRevenueData)
                     }else {
                         Text(
                             text = "Not Enough Data",
-                            modifier = Modifier
-                                .padding(dimensionResource(id = R.dimen.padding_small)),
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
                             fontSize = 20.sp, // Adjust the font size
                         )
 
@@ -282,15 +275,14 @@ fun BigNumberDisplay(modifier: Modifier = Modifier, title: String, number: Doubl
 fun StatusTable(
     statusData: List<Pair<String, Int>>
     = listOf(
-    "Operational" to 0,
-    "Out of Stock" to 0,
-    "Out of Service" to 0
+        "Operational" to 0,
+        "Out of Stock" to 0,
+        "Out of Service" to 0
     )
 ) {
     Column(
         modifier = Modifier
             //.fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(start = dimensionResource(id = R.dimen.padding_small), end = dimensionResource(id = R.dimen.padding_small)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -306,7 +298,7 @@ fun StatusTable(
                 text = "Status",
                 modifier = Modifier
                     .weight(1f)
-                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
 
@@ -315,7 +307,7 @@ fun StatusTable(
                 text = "Count",
                 modifier = Modifier
                     .weight(1f)
-                    //.padding(dimensionResource(id = R.dimen.padding_small)),
+                //.padding(dimensionResource(id = R.dimen.padding_small)),
                 ,fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -342,4 +334,3 @@ fun StatusTable(
         }
     }
 }
-
