@@ -20,7 +20,7 @@ class DashboardViewModel(savedStateHandle: SavedStateHandle, machinesRepository:
 
     // Extract year and month (0-based indexing for month)
     val currentYear: Int = calendar.get(Calendar.YEAR)
-    val currentMonth: Int = 5//calendar.get(Calendar.MONTH) + 1 // Adjust for 0-based indexing
+    val currentMonth: Int = calendar.get(Calendar.MONTH) + 1 // Adjust for 0-based indexing
 
 
     val dashboardCurrentYearRevenueUiState: StateFlow<CurrentYearRevenueUiState> =
