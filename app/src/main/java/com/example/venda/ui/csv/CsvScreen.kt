@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -98,8 +99,9 @@ fun CsvScreen(
                     Text(
                         text = "Preview of the First 5 Machines",
                         style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
-                            .align(Alignment.CenterHorizontally)
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                            .align(Alignment.CenterHorizontally),
+                        fontWeight = FontWeight.W400
                     )
                     LazyColumn(
                         modifier = Modifier.weight(1f),
