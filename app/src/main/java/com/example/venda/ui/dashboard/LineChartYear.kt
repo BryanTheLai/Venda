@@ -133,13 +133,14 @@ fun LineChartYear(pointsDataVar: List<Point>) {
 
     val yAxisData = AxisData.Builder()
         .steps(ySteps)
-        .labelAndAxisLinePadding(yLabelPadding.dp)
-        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
         .labelData { i ->
             // Add yMin to get the negative axis values to the scale
             val yScale = (yMax - yMin)/ySteps
             floor((i * yScale) + yMin).formatToSinglePrecision()
-        }.build()
+        }
+        .labelAndAxisLinePadding(yLabelPadding.dp)
+        .backgroundColor(MaterialTheme.colorScheme.primaryContainer)
+        .build()
 
     val lineChartData = LineChartData(
         linePlotData = LinePlotData(
@@ -163,8 +164,9 @@ fun LineChartYear(pointsDataVar: List<Point>) {
     co.yml.charts.ui.linechart.LineChart(
         modifier = Modifier
             //.fillMaxWidth()
-            .height(300.dp).width(500.dp)
             .background(MaterialTheme.colorScheme.primaryContainer)
+            .height(300.dp).width(500.dp)
+            //.background(MaterialTheme.colorScheme.primaryContainer)
         ,lineChartData = lineChartData
     )
 

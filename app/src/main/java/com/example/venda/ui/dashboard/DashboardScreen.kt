@@ -1,5 +1,6 @@
 package com.example.venda.ui.dashboard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -202,26 +203,31 @@ fun DashboardScreen(
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
             ) {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.primaryContainer),
                 ) {
                     Text(
                         text = "Revenue for $currentYear",
-                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
+                        modifier = Modifier
+                            .padding(dimensionResource(id = R.dimen.padding_small))
+                            .background(MaterialTheme.colorScheme.primaryContainer),
                         fontSize = 25.sp, // Adjust the font size
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
                     )
                     if (currentYearRevenueData.isNotEmpty() && currentYearRevenueData.size > 1) {
                         LineChartYear(currentYearRevenueData)
                     }else {
                         Text(
                             text = "Not Enough Data",
-                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
+                            modifier = Modifier
+                                .padding(dimensionResource(id = R.dimen.padding_small)),
                             fontSize = 20.sp, // Adjust the font size
                         )
 
@@ -284,6 +290,7 @@ fun StatusTable(
     Column(
         modifier = Modifier
             //.fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(start = dimensionResource(id = R.dimen.padding_small), end = dimensionResource(id = R.dimen.padding_small)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
