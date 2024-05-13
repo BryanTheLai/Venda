@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -99,7 +98,8 @@ fun CsvScreen(
                     Text(
                         text = "Preview of the First 5 Machines",
                         style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)).align(Alignment.CenterHorizontally)
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                            .align(Alignment.CenterHorizontally)
                     )
                     LazyColumn(
                         modifier = Modifier.weight(1f),
@@ -121,7 +121,6 @@ fun CsvScreen(
                             MachineRow(machine)
                         }
                     }
-                    Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
                     Button(
                         onClick = {
                             openFilePicker(saveFileLauncher)
@@ -131,6 +130,8 @@ fun CsvScreen(
                     ) {
                         Text(text = "Get All Machines as CSV")
                     }
+                    Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_extra_large)))
+
                 }
             }
         }
