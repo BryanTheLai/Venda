@@ -132,7 +132,7 @@ fun CsvScreen(
                     ) {
                         Text(text = "Get All Machines as CSV")
                     }
-                    Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_extra_large)))
+                    Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)))
 
                 }
             }

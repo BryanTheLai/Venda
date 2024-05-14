@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
@@ -76,11 +77,20 @@ private fun RevenueBody(
             )
         }
         if (revenueList.isEmpty()) {
-            Text(
-                text = "Empty Revenue",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_extra_large))
             )
+            {
+                Text(
+                    text = "No Revenues Found",
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }
+
         } else {
             InventoryListLoop(
                 revenueList = revenueList,
