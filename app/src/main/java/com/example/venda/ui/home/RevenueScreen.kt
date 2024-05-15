@@ -87,7 +87,9 @@ private fun RevenueBody(
                 Text(
                     text = "No Revenues Found",
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
+                    style = MaterialTheme.typography.titleMedium
+
                 )
             }
 

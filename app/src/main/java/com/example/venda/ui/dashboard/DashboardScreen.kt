@@ -3,6 +3,7 @@ package com.example.venda.ui.dashboard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -71,6 +72,7 @@ fun DashboardScreen(
         val currentMonthRevenue = dashboardCurrentMonthRevenueUiState.currentMonthRevenue.toString() // Query
         val currentMachineStatusPairs: List<Pair<String, Int>> =
             dashboardMachineStatusUiState.machineStatusCount.map { it.currentStatus to it.count }
+        val totalMachineNumber = currentMachineStatusPairs.sumOf { it.second }
 
         val yearChartRevenueData = dashboardYearChartRevenueUiState.yearRevenueData
 
@@ -177,6 +179,36 @@ fun DashboardScreen(
                         fontSize = 25.sp, // Adjust the font size
                         fontWeight = FontWeight.Medium
                     )
+                    if (totalMachineNumber == 0) {
+                        Text(
+                            text = "No Machines Found",
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                                .align(Alignment.CenterHorizontally),
+
+                            fontSize = 20.sp, // Adjust the font size
+                        )
+                    }else {
+                        Row (verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.End,) {
+                            Text(
+                                text = "Total Machines: ",
+                                modifier = Modifier
+                                    .padding(dimensionResource(id = R.dimen.padding_medium)),
+                                fontSize = 20.sp, // Adjust the font size
+                                fontWeight = FontWeight.Medium
+                            )
+                            Text(
+                                text = "$totalMachineNumber",
+                                modifier = Modifier
+                                    .padding(dimensionResource(id = R.dimen.padding_medium)),
+                                fontSize = 20.sp, // Adjust the font size
+                                //fontWeight = FontWeight.Medium
+                            )
+                            Spacer(modifier = Modifier
+                                .padding(dimensionResource(id = R.dimen.padding_medium))
+                                .weight(0.5f))
+                        }
+                    }
 
                     // Machine Status Current: Table
                     if (currentMachineStatusPairs.isNotEmpty()) {
@@ -184,7 +216,7 @@ fun DashboardScreen(
                     } else {
                         Text(
                             text = "Not Enough Data",
-                            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small)),
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)),
                             fontSize = 20.sp, // Adjust the font size
                         )
                     }
