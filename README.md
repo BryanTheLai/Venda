@@ -1,6 +1,4 @@
-## Venda - Machine tracking, CRUD, Dashboard, Csv
-
-Project from Diploma Mobile Development Class
+## Venda - Machine Revenue Tracker
 
 **Built with these:** 
 ![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
